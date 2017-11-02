@@ -2,7 +2,7 @@
    <div class="clearfix"></div>
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Powered By  <a href="https://oasis.com.ng">Oasis Professional Services</a>
           </div>
           <div class="clearfix"></div>
         </footer>

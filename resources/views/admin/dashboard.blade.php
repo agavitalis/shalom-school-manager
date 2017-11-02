@@ -13,34 +13,34 @@
             <div class="row top_tiles">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
-                  <div class="count">179</div>
+                  <div class="icon"><i class="fa fa-group"></i></div>
+                  <div class="count">{{$students}}</div>
                   <h3>My Students</h3>
                   <p>Number of Students registered on board.</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-comments-o"></i></div>
-                  <div class="count">179</div>
+                  <div class="icon"><i class="fa fa-graduation-cap"></i></div>
+                  <div class="count">{{$teachers}}</div>
                   <h3>My Teachers</h3>
                   <p>No of teachers registered on board.</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                  <div class="count">179</div>
+                  <div class="icon"><i class="fa fa-pencil-square"></i></div>
+                  <div class="count">{{$subjects}}</div>
                   <h3>Our Subjects</h3>
                   <p>Total Number of subject we teach.</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                  <div class="count">179</div>
-                  <h3>Notifications</h3>
-                  <p>Notifications from authorities.</p>
+                  <div class="icon"><i class="fa fa-home"></i></div>
+                  <div class="count">{{$classes}}</div>
+                  <h3>Classes</h3>
+                  <p>Total Number of Classes registered.</p>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
                   <div class="bs-example" data-example-id="simple-jumbotron">
                     <div class="jumbotron welcome">
                       <h1>Hello, {{Auth::user()->name}}!</h1>
-                      <p>Good evening, Welcome to the University of Nigeria Portal,How was your Day.</p>
+                      <p>Welcome to your School Portal,We are glad to have you back.</p>
                     </div>
                   </div>
 
@@ -94,7 +94,7 @@
 
 
 @section('footer')
-  @include('partials.teachers.footer')
+  @include('partials.admin.footer')
 @endsection
 
 

@@ -13,7 +13,7 @@ class Stdregexcelsheet extends Migration
      */
     public function up()
     {
-          Schema::create('stdregexcelsheet', function (Blueprint $table) {
+          Schema::create('stdregexcelsheets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('username')->unique();//that is the reg number
@@ -34,7 +34,7 @@ class Stdregexcelsheet extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('stdregexcelsheet');
+         Schema::dropIfExists('stdregexcelsheets');
     
     }
 }

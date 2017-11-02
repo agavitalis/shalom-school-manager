@@ -79,60 +79,101 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="home">
-
-                            <form method="post" action="/admin/editprofile" 
-                            id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            {{csrf_field()}}
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Your Name <span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="text" id="first-name"  value="{{Auth::user()->name}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="phone">Phone Number <span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="tel" id="phone" name="phone" value="{{Auth::user()->phone}}" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Email Address</label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="email" class="form-control col-md-7 col-xs-12" type="text" value="{{Auth::user()->email}}" name="email">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <div id="gender" class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                      <input type="radio" required="" name="gender" value="male"> &nbsp; Male &nbsp;
+                               <form  method="post" action="/admin/registerstudents" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                  {{csrf_field()}}
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                                     </label>
-                                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                      <input type="radio" required="" name="gender" value="female"> Female
-                                    </label>
+                                    <div class="col-md-8 col-xs-12">
+                                      <input type="text" id="name" name='name' required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth <span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" value="{{Auth::user()->dateofbirth}}" required="required" name="dateofbirth" type="date">
-                                </div>
-                              </div>
-                              <div class="ln_solid"></div>
-                              <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  
-                                  <button class="btn btn-primary" type="reset">Reset</button>
-                                  <button type="submit" class="btn btn-success">Update</button>
-                                </div>
-                              </div>
 
-                            </form>
+                            
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="regno">Registration Number <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8  col-xs-12">
+                                      <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
+                                    <div class="col-md-8 col-sm-6 col-xs-12">
+                                      <select class="form-control" required="" name="session">
+                                        <option disabled ="" selected ="">Select session</option>
+                                        @foreach($sessions as $session)
+                                        <option value = "{{$session->name}}">{{$session->name}}</option>
+
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Level<span class="required">*</span></label>
+                                    <div class="col-md-8 col-sm-6 col-xs-12">
+                                      <select class="form-control" required="" name="level" >
+                                        <option disabled ="" selected ="">Select Level</option>
+                                        @foreach($levels as $level)
+                                        <option value = "{{$level->name}}">{{$level->name}}</option>
+
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Class<span class="required">*</span></label>
+                                    <div class="col-md-8 col-sm-6 col-xs-12">
+                                      <select class="form-control" required="" name="klass">
+                                        <option disabled ="" selected ="">Select Class</option>
+                                        @foreach($klasses as $klass)
+                                        <option value = "{{$klass->name}}">{{$klass->name}}</option>
+
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
+                                    <div class="col-md-8 col-sm-6 col-xs-12">
+                                      <select class="form-control" required="" name="term">
+                                        <option disabled ="" selected ="">Select Term</option>
+                                        @foreach($terms as $term)
+                                        <option value = "{{$term->name}}">{{$term->name}}</option>
+
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                                    <div class="col-md-8  col-xs-12">
+                                      <div id="gender" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                                        </label>
+                                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio" name="gender" value="female"> Female
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                          
+                                  <div class="form-group">
+                                    <div class="col-md-8  col-xs-12 col-md-offset-3">
+                                    <hr>
+                                      <button type="submit" class="btn btn-success">Register Student</button>
+                                      <button class="btn btn-primary" type="reset">Reset</button>
+                                      
+                                    </div>
+                                  </div>
+
+                                </form>
+
+                            
+                            
+                             
                         </div>
                         <div class="tab-pane" id="profile">
 

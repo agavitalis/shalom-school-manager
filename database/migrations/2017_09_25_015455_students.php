@@ -16,18 +16,24 @@ class Students extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('name');
-            $table->string('username');
-            $table->string('class');
-            $table->string('house');
-            $table->string('level');
-            $table->string('session');
-            $table->string('term');
-            $table->string('subject');
-            $table->string('subject_teacher')->nullable();
-            $table->string('continious_accessment')->nullable();
-            $table->string('test')->nullable();
-            $table->string('total')->nullable();
-            $table->string('grade')->nullable(); 
+            $table->string('username')->unique();//that is the reg number
+            $table->string('email')->unique()->nullable();
+            $table->string('date_of_birth')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('address')->nullable();
+            $table->string('lga')->nullable();
+            $table->string('class')->nullable();
+            $table->string('house')->nullable();
+            $table->string('level')->nullable();
+            $table->string('session')->nullable();
+            $table->string('term')->nullable();
+            $table->string('skills')->nullable();
+            $table->string('interest')->nullable();
+            $table->string('quotes')->nullable();
+            $table->string('posts_held')->nullable(); 
             $table->timestamps();
         });
     }

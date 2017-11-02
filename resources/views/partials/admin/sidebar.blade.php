@@ -4,26 +4,26 @@
                 <h3>Authentication:{{Auth::user()->UserType}}</h3>
                 <ul class="nav side-menu">
                   <li><a href="/admin/dashboard"><i class="fa fa-home"></i> Home</a></li>
-                  <li><a><i class="fa fa-user"></i>Profile <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/admin/profile">View Profile</a></li>
-                      <li><a href="/admin/editprofile">Edit Profile</a></li>
-                    </ul>
-                  </li>
+
+                  <li><a href="/admin/session"><i class="fa fa-dashboard"></i> Manage Session</a></li>
+                   <li><a href="/admin/level"><i class="fa fa-bar-chart"></i> Manage Level</a></li>
+
+                  <li><a href="/admin/class"><i class="fa fa-cogs"></i> Manage Classes </a></li>
+                  <li><a href="/admin/subject"><i class="fa fa-calendar"></i> Manage Subjects</a></li>
                  
-                  <li><a><i class="fa fa-book"></i> My Students <span class="fa fa-chevron-down"></span></a>
+                  
+                  <li><a><i class="fa fa-group"></i> My Students <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/mystudents">View all Students</a></li>
+                       <li><a href="/admin/registerstudents">Register new Student(s)</a></li>
                        <li><a href="/admin/managestudents">Manage my Students</a></li>
-                      <li><a href="/admin/registerstudents">Register new Student(s)</a></li>
+                     
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-book"></i>My Teachers<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-graduation-cap"></i>My Teachers<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/myteachers">View all My Teachers</a></li>
-                       <li><a href="/admin/manageteachers">Manage My Teachers</a></li>
                       <li><a href="/admin/registerteachers">Register new Teacher(s)</a></li>
+                       <li><a href="/admin/manageteachers">Manage My Teachers</a></li>  
                     </ul>
                   </li>
                    <li><a><i class="fa fa-clone"></i>Student's Results<span class="fa fa-chevron-down"></span></a>
@@ -32,23 +32,11 @@
                        <li><a href="/admin/approveresult">Approve Student Results</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Study Materials<span class="fa fa-chevron-down"></span></a>
+                  
+                   <li><a><i class="fa fa-user"></i>Profile <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/announcements">View All Study Materials</a></li>
-                      <li><a href="/admin/uploadannouncement">Upload an announcements</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Scheme of Work<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/admin/announcements">View all Scheme of Work</a></li>
-                      <li><a href="/admin/uploadannouncement">Upload an Scheme of Work</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Announcements<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/admin/announcements">View Announcements</a></li>
-                      <li><a href="/admin/myannouncements">View all my announcements</a></li>
-                      <li><a href="/admin/uploadannouncement">Upload an announcements</a></li>
+                      <li><a href="/admin/profile">View Profile</a></li>
+                      <li><a href="/admin/editprofile">Edit Profile</a></li>
                     </ul>
                   </li>
                 </ul>

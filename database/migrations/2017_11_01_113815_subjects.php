@@ -13,9 +13,10 @@ class Subjects extends Migration
      */
     public function up()
     {
-          Schema::create('classes', function (Blueprint $table) {
+          Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('name');
+            $table->string('abbreviation');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class Houses extends Migration
      */
     public function up()
     {
-         Schema::create('classes', function (Blueprint $table) {
+         Schema::create('houses', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('name');
             $table->timestamps();

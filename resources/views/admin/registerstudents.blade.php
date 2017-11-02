@@ -9,7 +9,7 @@
        
                     <!-- page content -->
   <div class="right_col" role="main">
-          <div class="">
+    <div class="">
             <div class="page-title">
               <div class="title_left">
                 <h3>Register New Student(s)</h3>
@@ -27,11 +27,12 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="row">
+
+              <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Enter Student Details <small>you can also upload them as an excel file</small></h2>
+                    <h2>Enter Student Details: <small>fill the (current and correct) details to register</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -41,127 +42,159 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
+                  
+                    <form  method="post" action="/admin/registerstudents" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                      {{csrf_field()}}
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-8 col-xs-12">
+                          <input type="text" id="name" name='name' required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
 
- 						           @if(session('error'))
-                        <div class="alert alert-danger"><p>{{session('error')}}</p></div>
-                        @endif
+                 
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="regno">Registration Number <span class="required">*</span>
+                        </label>
+                        <div class="col-md-8  col-xs-12">
+                          <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                          <select class="form-control" required="" name="session">
+                            <option disabled ="" selected ="">Select session</option>
+                            @foreach($sessions as $session)
+                            <option value = "{{$session->name}}">{{$session->name}}</option>
 
-  <form  method="post" action="/admin/registerstudents" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-              {{csrf_field()}}
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="name" name='name' required="required" class="form-control col-md-7 col-xs-12">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="regno">Registration Number <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Level
-                  <span class="required">*</span></label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="level">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Class<span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="birthday" name="class" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div id="gender" class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                      </label>
-                      <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="gender" value="female"> Female
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Level<span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                          <select class="form-control" required="" name="level" >
+                            <option disabled ="" selected ="">Select Level</option>
+                            @foreach($levels as $level)
+                            <option value = "{{$level->name}}">{{$level->name}}</option>
+
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Class<span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                          <select class="form-control" required="" name="klass">
+                            <option disabled ="" selected ="">Select Class</option>
+                            @foreach($klasses as $klass)
+                            <option value = "{{$klass->name}}">{{$klass->name}}</option>
+
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                          <select class="form-control" required="" name="term">
+                            <option disabled ="" selected ="">Select Term</option>
+                            @foreach($terms as $term)
+                            <option value = "{{$term->name}}">{{$term->name}}</option>
+
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <div class="col-md-8  col-xs-12">
+                          <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="gender" value="female"> Female
+                            </label>
+                          </div>
+                        </div>
+                      </div>
               
-                <div class="form-group">
-                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                	<hr>
-                		<button type="submit" class="btn btn-success">Register Student</button>
-			               <button class="btn btn-primary" type="reset">Reset</button>
-                    
-                  </div>
+                      <div class="form-group">
+                        <div class="col-md-8  col-xs-12 col-md-offset-3">
+                        <hr>
+                          <button type="submit" class="btn btn-success">Register Student</button>
+                          <button class="btn btn-primary" type="reset">Reset</button>
+                          
+                        </div>
+                      </div>
+
+                    </form>
+
+                  </div>        
                 </div>
+              </div>
 
-    </form>
-   <hr>                 
-  <div class="container">   
-    <div class="panel panel-primary">
-      <div class="panel-body">
 
-        @if ($message = Session::get('success'))
-          <div class="alert alert-success" role="alert">
-            {{ Session::get('success') }}
-          </div>
-        @endif
+               <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Student Details <small>upload students list as an excel file</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                                   
+                    <div class="container">   
+                      <div class="panel panel-primary">
+                        <div class="panel-body">
+                           <h3>Download sample Excel file to register students:</h3>
+                            <div style="border: 2px solid #a1a1a1;margin-top: 15px;padding: 20px;">     
+                              <a href="{{ url('downloadStudent/xls') }}"><button class="btn btn-info ">Download Excel xls</button></a>
+                            <a href="{{ url('downloadStudent/xlsx') }}"><button class="btn btn-info ">Download Excel xlsx</button></a>
+                            <a href="{{ url('downloadStudent/csv') }}"><button class="btn btn-info ">Download CSV</button></a>
+                            </div>
 
-        @if ($message = Session::get('error'))
-          <div class="alert alert-danger" role="alert">
-            {{ Session::get('error') }}
-          </div>
-        @endif
+                          <h3>Upload Excel File:</h3>
+                          <form style="border: 2px solid #a1a1a1;margin-top: 15px;padding: 20px;"
+                           action="{{ URL::to('importStudent') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                  {{ csrf_field() }}
+                                  <input class= 'btn btn-success'type="file" name="import_file" />
+                                
+                                  <br/>
 
-        <h3>Import File Form:</h3>
-       <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;"
-        action="{{ URL::to('importStudent') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                  <button class="btn btn-primary">Upload Students List to Database</button>
 
-                <input class= 'btn btn-success'type="file" name="import_file" />
-                {{ csrf_field() }}
-                <br/>
+                          </form>
+                          <br/>
 
-                <button class="btn btn-primary">Import Students List to Database</button>
+                      
+                        </div>
+                      </div>
+                    </div>
 
-        </form>
-        <br/>
+                  </div>        
+                </div>
+              </div>
 
-          
-          <h3>Download the Excel format to register students:</h3>
-          <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">     
-            <a href="{{ url('downloadStudent/xls') }}"><button class="btn btn-success btn-lg">Download Excel xls</button></a>
-          <a href="{{ url('downloadStudent/xlsx') }}"><button class="btn btn-success btn-lg">Download Excel xlsx</button></a>
-          <a href="{{ url('downloadStudent/csv') }}"><button class="btn btn-success btn-lg">Download CSV</button></a>
-          </div>
 
-      </div>
+
+
+
+
+      </div>   
     </div>
   </div>
-
-
-
-
-
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-            
-
-           
-
-           
-          </div>
-        </div>
-        <!-- /page content -->
+  <!-- /page content -->
 
       @endsection
 
