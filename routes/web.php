@@ -106,7 +106,7 @@ Route::match(['get','post'],'admin/editprofile','adminController@admineditprofil
 Route::match(['get','post'],'admin/registerteachers','adminController@registerteachers')
 			->name('admin.registerteachers');
 
-Route::get('downloadTeacher/{type}', 'adminController@downloadstudent')->name('downloadteacher');
+Route::get('downloadTeacher/{type}', 'adminController@downloadteacher')->name('downloadteacher');
 
 Route::post('importTeacher', 'adminController@importstudent')->name('importteacher');
 Route::get('admin/manageteachers','adminController@manageteachers')->name('admin.manageteachers');

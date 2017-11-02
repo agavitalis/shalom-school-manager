@@ -11,7 +11,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Profile Update</h3>
+                <h3>Student Profile</h3>
               </div>
 
               <div class="title_right">
@@ -32,7 +32,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Update your Profile</h2>
+                    <h2>Update Student Records</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                       
@@ -45,11 +45,11 @@
 
 
                     <!-- Smart Wizard -->
-                    <p>Only correct information should be entered.</p>
+                    <p>Only correct and current information should be entered.</p>
                      <div class="col-md-8 col-md-offset-2 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><i class="fa fa-bars"></i> Profile Update</h2>
+                    <h2><i class="fa fa-bars"></i>Student Profile Update</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -64,14 +64,11 @@
                       <!-- required for floating -->
                       <!-- Nav tabs -->
                       <ul class="nav nav-tabs tabs-left">
-                        <li class="active"><a href="#home" data-toggle="tab">Personal Information</a>
+                        <li class="active"><a href="#home" data-toggle="tab">Basic Information</a>
                         </li>
-                        <li><a href="#profile" data-toggle="tab">Background Information</a>
+                        <li><a href="#profile" data-toggle="tab">Other Information</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Academic Informaton</a>
-                        </li>
-                        <li><a href="#settings" data-toggle="tab">About Yourself</a>
-                        </li>
+                  
                       </ul>
                     </div>
 
@@ -79,13 +76,13 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="home">
-                               <form  method="post" action="/admin/registerstudents" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                               <form  method="post" action="/admin/editstudent/{{$update->id}}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                   {{csrf_field()}}
                                   <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-8 col-xs-12">
-                                      <input type="text" id="name" name='name' required="required" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" id="name" name='name' value="{{$update->name}}" required="required" class="form-control col-md-7 col-xs-12">
                                     </div>
                                   </div>
 
@@ -94,14 +91,14 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="regno">Registration Number <span class="required">*</span>
                                     </label>
                                     <div class="col-md-8  col-xs-12">
-                                      <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12">
+                                      <input type="text" id="username" name="username"  value="{{$update->username}}"required="required" class="form-control col-md-7 col-xs-12">
                                     </div>
                                   </div>
                                   <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
                                     <div class="col-md-8 col-sm-6 col-xs-12">
-                                      <select class="form-control" required="" name="session">
-                                        <option disabled ="" selected ="">Select session</option>
+                                      <select class="form-control" required="" name="session"  value="{{$update->session}}">
+                                        <option  value="{{$update->session}}">{{$update->session}}</option>
                                         @foreach($sessions as $session)
                                         <option value = "{{$session->name}}">{{$session->name}}</option>
 
@@ -112,8 +109,8 @@
                                   <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Level<span class="required">*</span></label>
                                     <div class="col-md-8 col-sm-6 col-xs-12">
-                                      <select class="form-control" required="" name="level" >
-                                        <option disabled ="" selected ="">Select Level</option>
+                                      <select class="form-control" required="" name="level" value="{{$update->level}}" >
+                                        <option  value="{{$update->level}}">{{$update->level}}</option>
                                         @foreach($levels as $level)
                                         <option value = "{{$level->name}}">{{$level->name}}</option>
 
@@ -125,8 +122,8 @@
                                   <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Class<span class="required">*</span></label>
                                     <div class="col-md-8 col-sm-6 col-xs-12">
-                                      <select class="form-control" required="" name="klass">
-                                        <option disabled ="" selected ="">Select Class</option>
+                                      <select class="form-control" required="" name="klass" value="{{$update->class}}">
+                                        <option  value="{{$update->class}}">{{$update->class}}</option>
                                         @foreach($klasses as $klass)
                                         <option value = "{{$klass->name}}">{{$klass->name}}</option>
 
@@ -137,8 +134,8 @@
                                   <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
                                     <div class="col-md-8 col-sm-6 col-xs-12">
-                                      <select class="form-control" required="" name="term">
-                                        <option disabled ="" selected ="">Select Term</option>
+                                      <select class="form-control" required="" name="term" value="{{$update->class}}">
+                                        <option  value="{{$update->term}}">{{$update->term}}</option>
                                         @foreach($terms as $term)
                                         <option value = "{{$term->name}}">{{$term->name}}</option>
 
@@ -147,14 +144,14 @@
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender: {{$update->gender}}</label>
                                     <div class="col-md-8  col-xs-12">
-                                      <div id="gender" class="btn-group" data-toggle="buttons">
+                                      <div id="gender" class="btn-group" data-toggle="buttons" >
                                         <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                          <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                                          <input type="radio" name="gender" required="" value="male"> &nbsp; Male &nbsp;
                                         </label>
                                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                          <input type="radio" name="gender" value="female"> Female
+                                          <input type="radio" name="gender" required="" value="female"> Female
                                         </label>
                                       </div>
                                     </div>
@@ -163,7 +160,7 @@
                                   <div class="form-group">
                                     <div class="col-md-8  col-xs-12 col-md-offset-3">
                                     <hr>
-                                      <button type="submit" class="btn btn-success">Register Student</button>
+                                      <button type="submit" class="btn btn-success">Update Records</button>
                                       <button class="btn btn-primary" type="reset">Reset</button>
                                       
                                     </div>
@@ -177,166 +174,68 @@
                         </div>
                         <div class="tab-pane" id="profile">
 
-
-
-                      @if(session('error'))
-                        <div class="alert alert-danger"><p>{{session('error')}}</p></div>
-                        @endif
-                            <form method="post" action="/admin/editprofile" 
-                            id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            {{csrf_field()}}
+                            <form  id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                          
                               <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Nationality <span class="required">*</span>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Email <span class="required">*</span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="text" id="first-name"  value="{{Auth::user()->country}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
+                                  <input type="text" id="first-name"  value="{{$student->email}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
+                                </div>
+                              </div>
+                               <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Phone <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                  <input type="text" id="first-name"  value="{{$student->phone}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
+                                </div>
+                              </div>
+                               <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Date of Birth <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                  <input type="text" id="first-name"  value="{{$student->date_of_birth}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
+                                </div>
+                              </div>
+                               <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Residential Address <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                  <textarea class="form-control" rows="3"disabled="true" placeholder="{{$student->address}}">{{$student->address}}</textarea>
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="phone">State of Origin<span class="required">*</span>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">LGA of Origin <span class="required">*</span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="tel" id="phone" name="phone" value="{{Auth::user()->state}}" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Local Government</label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="email" class="form-control col-md-7 col-xs-12" type="text" value="{{Auth::user()->lga}}" name="email">
+                                  <input type="text" id="first-name"  value="{{$student->lga}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
                                 </div>
                               </div>
                               
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Residential Address <span class="required">*</span>
+                               <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">State <span class="required">*</span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" value="{{Auth::user()->dateofbirth}}" required="required" name="dateofbirth" type="date">
+                                  <input type="text" id="first-name"  value="{{$student->state}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
                                 </div>
                               </div>
+                              
+                               <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Country <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                  <input type="text" id="first-name"  value="{{$student->country}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
+                                </div>
+                              </div>
+                              
                               <div class="ln_solid"></div>
-                              <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  
-                                  <button class="btn btn-primary" type="reset">Reset</button>
-                                  <button type="submit" class="btn btn-success">Update</button>
-                                </div>
-                              </div>
+                              
 
                             </form>
 
                         </div>
-                        <div class="tab-pane" id="messages">
-
-                        @if(session('error'))
-                        <div class="alert alert-danger"><p>{{session('error')}}</p></div>
-                        @endif
-                            <form method="post" action="/admin/editprofile" 
-                            id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            {{csrf_field()}}
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Year of Addmission <span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="text" id="first-name"  value="{{Auth::user()->name}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="phone">Level<span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="tel" id="phone" name="phone" value="{{Auth::user()->phone}}" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Class</label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="email" class="form-control col-md-7 col-xs-12" type="text" value="{{Auth::user()->email}}" name="email">
-                                </div>
-                              </div>
-                              
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">House<span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" value="{{Auth::user()->dateofbirth}}" required="required" name="dateofbirth" type="date">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Term<span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" value="{{Auth::user()->dateofbirth}}" required="required" name="dateofbirth" type="date">
-                                </div>
-                              </div>
-                              <div class="ln_solid"></div>
-                              <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  
-                                  <button class="btn btn-primary" type="reset">Reset</button>
-                                  <button type="submit" class="btn btn-success">Update</button>
-                                </div>
-                              </div>
-
-                            </form>
-
-
-
-                        </div>
-                        <div class="tab-pane" id="settings">
-                           @if(session('error'))
-                        <div class="alert alert-danger"><p>{{session('error')}}</p></div>
-                        @endif
-                            <form method="post" action="/admin/editprofile" 
-                            id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            {{csrf_field()}}
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">Your Skills <span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="text" id="first-name"  value="{{Auth::user()->name}}" required="required" disabled="true" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12" for="phone">Areas of Interest<span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input type="tel" id="phone" name="phone" value="{{Auth::user()->phone}}" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="middle-name" class="control-label col-md-4 col-sm-4 col-xs-12">Class</label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="email" class="form-control col-md-7 col-xs-12" type="text" value="{{Auth::user()->email}}" name="email">
-                                </div>
-                              </div>
-                              
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Best quotes<span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" value="{{Auth::user()->dateofbirth}}" required="required" name="dateofbirth" type="date">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Posts Held<span class="required">*</span>
-                                </label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" value="{{Auth::user()->dateofbirth}}" required="required" name="dateofbirth" type="date">
-                                </div>
-                              </div>
-                              <div class="ln_solid"></div>
-                              <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  
-                                  <button class="btn btn-primary" type="reset">Reset</button>
-                                  <button type="submit" class="btn btn-success">Update</button>
-                                </div>
-                              </div>
-
-                            </form>
-
-
-                        </div>
+                        
+                       
                       </div>
                     </div>
 
@@ -358,22 +257,22 @@
 @endsection
 
 @section('footer')
-  @include('partials.teachers.footer')
+  @include('partials.admin.footer')
 @endsection
 
 
 
 @section('scripts')
 <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="{{asset('vendors/fastclick/lib/fastclick.js')}}"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="{{asset('vendors/nprogress/nprogress.js')}}"></script>
     <!-- jQuery Smart Wizard -->
-    <script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <script src="{{asset('vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
     <!-- Custom Theme Scripts -->
-    <script src="../js/custom.js"></script>
+    <script src="{{asset('js/custom.js"></script>
 @endsection

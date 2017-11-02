@@ -9,7 +9,9 @@ use App\Model\Level;
 use App\Model\Klass;
 use App\Model\Subject;
 use App\Model\Student;
+use App\Model\Teacher;
 use App\Model\stdregexcelsheet;
+use App\Model\tearegexcelsheet;
 use Validator;
 use Auth;
 use Excel;
@@ -32,7 +34,7 @@ public function admindashboard()
     //gem me the list of admin, students and teachers
      $students=DB::table('users')->where('UserType','student')->count();
      $teachers=DB::table('users')->where('UserType','teacher')->count();
-     $classes=DB::table('classes')->count();
+     $classes=DB::table('klasses')->count();
      $subjects=DB::table('subjects')->count();
      //dd($students);
   	return view('admin.dashboard',compact('students','teachers','classes','subjects'));
@@ -235,58 +237,13 @@ public function registerstudents(Request $request) {
          
 }
 
-  public function adminprofile()
-  {
-
-      return view('admin.profile');
-  }
-
-  public function admineditprofile(Request $update)
-  {
-
-    if($update->isMethod('POST'))
-    {
-      $this->validate($update,[
-
-        'email'=>["required",Rule::unique('users')->ignore(Auth::id())],
-        'phone'=>'required',
-        'dateofbirth'=>'required',
-        'gender'=>'required'
-        
-        ]);
-
-      //since we are updating, we done insta
-      $user=user::find(Auth::user()->id);
-
-     // dd($user);
-      $user->email=$update->email;
-      $user->phone=$update->phone;
-      $user->dateofbirth=$update->dateofbirth;
-      $user->gender=$update->gender;
-
-      $user->save();
-      return redirect()->back()->with('status','Profile succefully updated');
-    }
-    elseif($update->isMethod('GET'))
-    {
-        return view('admin.editprofile');
-    }    
-  }
-
- 
-    
-
-  
-
- 
-
 //here i did download excel from database
 
 public function downloadstudent(Request $request, $type)
   {
    // $data=DB::table('studentregistration')->get()->toArray();
     $data = stdregexcelsheet::get()->toArray();
-    return Excel::create('stdreg_details', function($excel) use ($data) {
+    return Excel::create('students_reg_details', function($excel) use ($data) {
       $excel->sheet('mySheet', function($sheet) use ($data)
           {
         $sheet->fromArray($data);
@@ -330,7 +287,6 @@ public function importstudent(Request $request)
   }
 
    
-
  public function managestudents(Request $request)
   {
      if($request->isMethod('GET'))
@@ -342,9 +298,9 @@ public function importstudent(Request $request)
       elseif($request->isMethod('POST'))
       {
         $user=user::find($request->id);
-        $student=student::find($request->id);
+        DB::table('students')->where('username',$user->username)->delete();
         $user->delete();
-        $student->delete();
+      
         return back()->with('success','You have successfully deleted this Subject');
     
 
@@ -362,11 +318,54 @@ public function editstudent(Request $update,$id){
           $levels=DB::table('levels')->get();
           $klasses=DB::table('klasses')->get();
           $terms=DB::table('terms')->get();
+        
+          $update=DB::table('users')->where('id',$id)->first();
          
-             return view('admin.editstudent',compact('sessions','levels','klasses','terms'));
+          $student=DB::table('students')->where('username',$update->username)->first();
+         // $student=DB::table('students')->where('username',)->first();
+
+          
+         //dd($teachers);
+             return view('admin.editstudent',compact('sessions','levels','klasses','terms','update','student'));
         
     }   
    elseif($update->isMethod('POST'))
+    {
+     
+      //since we are updating, we done insta
+      $user=user::find($id);
+     
+      DB::table('students')->where('username',$user->username)->update(['name'=>$update->name,'username'=>$update->username]);
+
+      $user->name=$update->name;
+      $user->username=$update->username;
+      $user->session=$update->session;
+      $user->class=$update->klass;
+      $user->level=$update->level;
+      $user->term=$update->term;
+      $user->gender=$update->gender;
+
+      $user->save();
+
+       
+      return redirect()->back()->with('success','Profile successfully updated');
+    }
+    else
+    {
+        return redirect()->back()->with('error','We dont know what you are talking about');
+    }    
+}
+
+
+//i took care of the admin here
+public function adminprofile(){
+
+      return view('admin.profile');
+}
+
+public function admineditprofile(Request $update){
+
+    if($update->isMethod('POST'))
     {
       $this->validate($update,[
 
@@ -389,9 +388,9 @@ public function editstudent(Request $update,$id){
       $user->save();
       return redirect()->back()->with('status','Profile succefully updated');
     }
-    else
+    elseif($update->isMethod('GET'))
     {
-        return redirect()->back()->with('error','We dont know what you are talking about');
+        return view('admin.editprofile');
     }    
 }
 
@@ -399,118 +398,82 @@ public function editstudent(Request $update,$id){
 
 
 
-
-
-
-
-
-
-
-
-   public function myteachers()
-  {
-      //dd($id);
-      $type="teacher";
-      $teachers=DB::table('users')->where('UserType','teacher')->get();
-     // $students=User::all();
-      //dd($students);
-    
-      return view('admin.myteachers',compact('teachers'));
-  }
-    
-
-   public function manageteachers()
-  {
-    if($request->isMethod('GET'))
-      {
-        $type="teacher";
-        $teachers=DB::table('users')->where('UserType','teacher')->get();
-        return view('admin.manageteachers',compact('teachers'));
-      }
-      elseif($request->isMethod('GET'))
-      {
-
-
-      }
-    
-  }
+//teachers
 
   public function registerteachers(Request $request)
   {
 
-       if($request->isMethod('POST'))
+      if($request->isMethod('GET'))
         {
-          // $this->validate($request,[
-
-          //   'name'=>"required",
-          //   'regno'=>["required",Rule::unique('users')],
-          //   'level'=>'required',
-          //   'class'=>'required',
-          //   'gender'=>'required'
-            
-          //   ]);
+             $sessions=DB::table('sessions')->get();
+             return view('admin.registerteachers',compact('sessions'));
+        }  
+      elseif($request->isMethod('POST'))
+        {
+         
 
           //since we are creating a new guy now
           $teacher= new User();
 
-         // dd($user);
           $teacher->name=$request->name;
           $teacher->username=$request->username;
-          $teacher->level=$request->level;
-          
-          $teacher->class=$request->class;
           $teacher->gender=$request->gender;
           $teacher->password= bcrypt("teacher101");
           $teacher->usertype="teacher";
 
           $teacher->save();
-          return redirect()->back()->with('status','Teacher succefully added');
+          //save in too in the teachers table
+          $newteacher = new Teacher();
+          $newteacher->name=$request->name;
+          $newteacher->username=$request->username;
+
+          $newteacher->save();
+
+          return redirect()->back()->with('success','Teacher successfully Registered');
         }
-        elseif($request->isMethod('GET'))
-        {
-             return view('admin.registerteachers');
-        }  
+      else
+      {
+           return redirect()->back()->with('error','We  dont know what you are saying');
+      }
+        
   }
 
   //here i did download excel from database
   public function downloadteacher(Request $request, $type)
   {
-   // $data=DB::table('studentregistration')->get()->toArray();
-    $data = stdregexcelsheet::get()->toArray();
-    return Excel::create('stdreg_details', function($excel) use ($data) {
-      $excel->sheet('mySheet', function($sheet) use ($data)
+   
+    $data = tearegexcelsheet::get()->toArray();
+    return Excel::create('teachers_reg_details', function($excel) use ($data) {
+      $excel->sheet('mySheet', function($sheet) use($data)
           {
-        $sheet->fromArray($data);
+            $sheet->fromArray($data);
           });
     })->download($type);
   }
     
 //here I read the excelfile
-
-
-
-
-
-
-
-
-  public function importsteacher(Request $request)
+public function importsteacher(Request $request)
   {
 
    if($request->hasFile('import_file')){
             $path = $request->file('import_file')->getRealPath();
-            $data = \Excel::load($path)->get();
+            $data = Excel::load($path)->get();
             if($data->count()){
-                foreach ($data as $key => $value) {
-                    $arr[] = ['name' => $value->name, 'username' => $value->username,
-                    'gender' => $value->gender, 'class' => $value->class, 'level' => $value->level,
-                    'session' => $value->session, 'term' => $value->term,
-                     'password'=> bcrypt("student101"),'UserType' =>"student"];
+                 foreach ($data as $key => $value)
+                {
+                    $user[] = ['name' => $value->name, 'username' => $value->username,
+                    'gender' => $value->gender, 'session' => $value->session,
+                    'password'=> bcrypt("teacher101"),'UserType' =>"teacher"];
+
+                     $teacher[] = ['name' => $value->name, 'username' => $value->username];
+
+
                 }
 
                 // 'name','username','gender','class','level','session','term' 
-                if(!empty($arr)){
-                    \DB::table('users')->insert($arr);
+                if(!empty($user)){
+                    DB::table('users')->insert($user);
+                    DB::table('teachers')->insert($teacher);
                     //dd('Insert Record successfully.');
                     return back()->with('success','Insert Record successfully.');
                 }
@@ -519,6 +482,7 @@ public function editstudent(Request $update,$id){
     return back()->with('error','Please Check your file, Something is wrong there.');
   }
      
+
 
   public function allresults()
   {

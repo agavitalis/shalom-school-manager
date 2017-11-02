@@ -201,7 +201,7 @@
 
 
 @section('footer')
-  @include('partials.teachers.footer')
+  @include('partials.admin.footer')
 @endsection
 
 

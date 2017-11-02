@@ -13,16 +13,13 @@ class Tearegexcelsheet extends Migration
      */
     public function up()
     {
-         Schema::create('tearegexcelsheet', function (Blueprint $table) {
+         Schema::create('tearegexcelsheets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('username')->unique();//that is the reg number
-            $table->string('gender')->nullable();    
-            $table->string('class')->nullable(); 
-            $table->string('subject')->nullable();
+            $table->string('gender')->nullable();   
             $table->string('session')->nullable();
-            $table->string('term')->nullable();
-            $table->rememberToken();
+    
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class Tearegexcelsheet extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tearegexcelsheet');
+        Schema::dropIfExists('tearegexcelsheets');
     }
 }
