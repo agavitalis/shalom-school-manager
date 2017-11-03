@@ -18,8 +18,6 @@ class Tearegexcelsheet extends Migration
             $table->string('name');
             $table->string('username')->unique();//that is the reg number
             $table->string('gender')->nullable();   
-            $table->string('session')->nullable();
-    
             $table->timestamps();
         });
     }

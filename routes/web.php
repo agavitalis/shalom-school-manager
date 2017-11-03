@@ -111,18 +111,19 @@ Route::get('downloadTeacher/{type}', 'adminController@downloadteacher')->name('d
 Route::post('importTeacher', 'adminController@importstudent')->name('importteacher');
 Route::get('admin/manageteachers','adminController@manageteachers')->name('admin.manageteachers');
 
+Route::match(['get','post'],'admin/editteacher/{id?}','adminController@editteacher')->name('admin.editteacher');
 
 
+//assign coureses and classes
+Route::match(['get','post'],'admin/assignsubject','adminController@assignsubject')->name('admin.assignsubject');
+
+Route::match(['get','post'],'admin/assignclass','adminController@assignclass')->name('admin.assignclass');
 
 
 //here i took care of the results from the admin
-Route::get('admin/viewresults','adminController@allresults')->name('viewresults');
+Route::match(['get','post'],'admin/viewresults','adminController@allresults')->name('viewresults');
 
-Route::get('admin/approveresults','adminController@approveresults')->name('approvesresults');
-
-Route::get('admin/uploadresults/{type?}','adminController@uploadresults')->name('uploadresults');
-
-Route::post('importresult', 'adminController@importstudent')->name('importresults');
+Route::match(['get','post'],'admin/approveresult','adminController@approveresults')->name('approvesresults');
 
 
 

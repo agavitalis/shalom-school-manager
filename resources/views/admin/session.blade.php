@@ -94,6 +94,8 @@
               </div>
 
                <div class="col-md-6 col-xs-12">
+                  <div class="col-md-12 col-xs-12"> 
+
                     <div class="x_panel">
                     <div class="x_title">
                         <h2>Register <small>school academic sessions here</small></h2>
@@ -131,7 +133,53 @@
                     </div>
                     </div>
 
-               
+                </div>
+
+                <div class="col-md-12 col-xs-12"> 
+
+                    <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Term:Your Current Term is {{$currentT->words}}</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                       
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form class="form-horizontal form-label-left input_mask" action="/admin/session" method="post">
+                            {{csrf_field()}}
+                        <input type="hidden" name="action" value="term">
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
+                          <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="id">
+                              <option disabled ="" selected ="">Select Term</option>
+                              @foreach($terms as $term)
+                              <option value = "{{$term->name}}">{{$term->name}}</option>
+
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                            
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success">Set Term</button>
+                            </div>
+                        </div>
+
+                        </form>
+                    </div>
+                    </div>
+
+                </div>
 
 
               </div>

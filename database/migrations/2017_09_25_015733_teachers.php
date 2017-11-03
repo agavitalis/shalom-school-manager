@@ -17,9 +17,23 @@ class Teachers extends Migration
             $table->increments('id')->unique();
             $table->string('name');
             $table->string('username');
+            $table->string('email')->unique()->nullable();
+            $table->string('date_of_birth')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('address')->nullable();
+            $table->string('lga')->nullable();
             $table->string('class')->nullable();
-            $table->string('subject');
-            $table->string('announcement')->nullable();
+            $table->string('house')->nullable();
+            $table->string('level')->nullable();
+            $table->string('session')->nullable();
+            $table->string('term')->nullable();
+            $table->string('skills')->nullable();
+            $table->string('interest')->nullable();
+            $table->string('quotes')->nullable();
+            $table->string('posts_held')->nullable();
            
             $table->timestamps();
         });

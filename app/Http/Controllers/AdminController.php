@@ -10,6 +10,10 @@ use App\Model\Klass;
 use App\Model\Subject;
 use App\Model\Student;
 use App\Model\Teacher;
+use App\Model\Result;
+use App\Model\Term;
+use App\Model\assignsubject;
+use App\Model\assignclass;
 use App\Model\stdregexcelsheet;
 use App\Model\tearegexcelsheet;
 use Validator;
@@ -44,9 +48,12 @@ public function session(Request $request){
      if($request->isMethod('GET'))
     {
         $sessions=DB::table('sessions')->get();
+        $terms=DB::table('terms')->get();
+
         $current=DB::table('sessions')->where('current',1)->first();
+        $currentT=DB::table('terms')->where('current',1)->first();
        // dd($sessions);
-      	return view('admin.session',compact('sessions','current'));
+      	return view('admin.session',compact('sessions','current','terms','currentT'));
     }
     elseif($request->isMethod('POST'))
     {
@@ -79,6 +86,21 @@ public function session(Request $request){
         $session=session::find($request->id);
         $session->delete();
         return back()->with('success','You have successfully deleted this session');
+      }
+       elseif($request->action == "term")
+      {
+        //change the olde term to zero
+             $current=DB::table('terms')->where('current',1)->first();
+            // dd($current);
+             $old=term::find($current->id);
+             $old->current = 0;
+             $old->update();
+
+        //then find the new one and change it to active
+        $term=term::find($request->id);
+        $term->current = 1;
+        $term->save();
+        return back()->with('success','You have successfully the term');
       }
       else
       {
@@ -462,7 +484,7 @@ public function importsteacher(Request $request)
                  foreach ($data as $key => $value)
                 {
                     $user[] = ['name' => $value->name, 'username' => $value->username,
-                    'gender' => $value->gender, 'session' => $value->session,
+                    'gender' => $value->gender,
                     'password'=> bcrypt("teacher101"),'UserType' =>"teacher"];
 
                      $teacher[] = ['name' => $value->name, 'username' => $value->username];
@@ -484,28 +506,218 @@ public function importsteacher(Request $request)
      
 
 
-  public function allresults()
-  {
-     
-      $results=DB::table('students')->get();
-      return view('admin.viewresults',compact('results'));
-  }
 
-   public function approveresults()
-  {
-      $results=DB::table('subjects')->where('UserType','student')->get();
-      return view('admin.approveresult');
-  }
+public function manageteachers(Request $request){
+     if($request->isMethod('GET'))
+      {
+        $teachers =DB::table('users')->where('UserType','teacher')->get();
+        return view('admin.manageteachers',compact('teachers'));
+      }
+      elseif($request->isMethod('POST'))
+      {
+        $user=user::find($request->id);
+        DB::table('teachers')->where('username',$user->username)->delete();
+        $user->delete();
+      
+        return back()->with('success','You have successfully deleted this Teacher');
+    
 
-   public function uploadresults($type=null)
-  {
-    if($type==null)
-    {
-      return view('admin.uploadresults');
-    }
+      }
+}
 
+public function editteacher(Request $update,$id){
+
+  if($update->isMethod('GET'))
+  {
+      $sessions=DB::table('sessions')->get();
+      $levels=DB::table('levels')->get();
+      $klasses=DB::table('klasses')->get();
+      $terms=DB::table('terms')->get();
+    
+      $update=DB::table('users')->where('id',$id)->first();
+      
+      $teacher=DB::table('teachers')->where('username',$update->username)->first();
+      // $student=DB::table('students')->where('username',)->first();
+      //dd($teachers);
+      return view('admin.editteacher',compact('sessions','levels','klasses','terms','update','teacher'));
     
   }
+  elseif($update->isMethod('POST'))
+    {
+     
+      //since we are updating, we done insta
+      $user=user::find($id);
+     
+      DB::table('teachers')->where('username',$user->username)->update(['name'=>$update->name,'username'=>$update->username]);
+
+      $user->name=$update->name;
+      $user->username=$update->username;
+      $user->session=$update->session;
+      $user->gender=$update->gender;
+
+      $user->save();
+
+       
+      return redirect()->back()->with('success','Profile successfully updated');
+    }
+    else
+    {
+        return redirect()->back()->with('error','We dont know what you are talking about');
+    }    
+}
+
+  public function allresults(Request $request)
+  {
+     if($request->isMethod('GET'))
+    {
+      $results=DB::table('results')->get();
+      return view('admin.viewresults',compact('results'));
+    }
+    elseif($request->isMethod('POST'))
+    {
+       $results=DB::table('results')->where([ 
+      'class' =>$request->class, 'uploaded_by' =>$request->uploaded_by, 'approved' =>0, 'subject_teacher' =>$request->subject_teacher,'term' =>$request->term,'level' =>$request->level,
+      'session' =>$request->session,'subject' =>$request->subject])->get();
+       return view('admin.viewresultp',compact('results'));
+    }  
+  }
+
+   public function approveresults(Request $request)
+  {
+     if($request->isMethod('GET'))
+    {
+      $results=DB::table('results')->select('approved','level','class','subject_teacher','term','subject','session','uploaded_by')
+      ->groupBy('approved','level','class','subject','subject_teacher','term','session','uploaded_by')
+      ->having('approved',0)->get();
+      return view('admin.approveresults',compact('results'));
+    }
+     elseif($request->isMethod('POST'))
+    {
+       $approveresults=DB::table('results')->where([ 
+                'class' =>$request->class, 'uploaded_by' =>$request->uploaded_by, 'approved' =>0, 'subject_teacher' =>$request->subject_teacher,'term' =>$request->term,'level' =>$request->level,
+                'session' =>$request->session,'subject' =>$request->subject])->get();    
+              foreach($approveresults as $approve )
+              {
+                 $approved = Result::find( $approve->id);
+                 $approved->approved = 1;
+                 $approved->update();
+              }
+         return back()->with('success','Results successfully aproved.');
+    }
+  }
+
+   
+//i assigned classes and subjects here
+public function assignsubject(Request $request) {
+        if($request->isMethod('GET'))
+        {
+          
+          $sessions=DB::table('sessions')->get();
+          $levels=DB::table('levels')->get();
+          $klasses=DB::table('klasses')->get();
+          $terms=DB::table('terms')->get();
+          $subjects=DB::table('subjects')->get();
+          $assignedsubjects=DB::table('assignsubjects')->get();
+          $teachers=DB::table('teachers')->get();
+         
+             return view('admin.assignsubject',compact('sessions','levels','klasses','terms','assignedsubjects','subjects','teachers'));
+        }  
+
+        elseif($request->isMethod('POST'))
+        {
+          //dd($request);
+          if($request->action == 'assign'){
+          //since we are creating a new guy now
+              if((($request->session == ''|| $request->level=='')||($request->klass==''||$request->term == ''))||($request->teacher ==''||$request->subject=='')){
+                return back()->with('error','Select all fields sir');
+              }
+
+              $subject= new assignsubject();
+
+            
+              $subject->session=$request->session;
+              $subject->level=$request->level;
+              $subject->class=$request->klass;
+              $subject->term=$request->term;
+              $subject->name=$request->subject;
+              $subject->teacher_name=$request->teacher;
+              $subject->is_coordinator=$request->coordinator;
+            
+              $subject->save();
+
+              return back()->with('success','subject successfully assigned');
+            }
+            elseif($request->action == 'delete'){
+               $delete = assignsubject::find( $request->id);
+                 
+              $delete->delete();
+               return back()->with('success','subject successfully deleted');
+            }
+            else
+            {
+                return back()->with('error','We dont know what you are talking about');
+            }
+        }    
+}
+
+
+public function assignclass(Request $request) {
+        if($request->isMethod('GET'))
+        {
+          
+          $sessions=DB::table('sessions')->get();
+          $levels=DB::table('levels')->get();
+          $klasses=DB::table('klasses')->get();
+          $terms=DB::table('terms')->get();
+          $assignedclasses=DB::table('assignclasses')->get();
+          $teachers=DB::table('teachers')->get();
+         
+             return view('admin.assignclass',compact('sessions','levels','klasses','terms','assignedclasses','teachers'));
+        }  
+
+        elseif($request->isMethod('POST'))
+        {
+          //dd($request);
+          if($request->action == 'assign'){
+          //since we are creating a new guy now
+              if((($request->session == ''|| $request->level=='')||($request->klass==''||$request->term == ''))||($request->teacher =='')){
+                return back()->with('error','Select all fields sir');
+              }
+
+              //check if this class have been assigned before
+               $check=DB::table('assignclasses')->where([ 
+                'name' =>$request->klass, 'level' =>$request->level,'term' =>$request->term,
+                'session' =>$request->session])->get();
+               // dd($check);
+              if($check->count() > 0){
+                 return back()->with('error','This class has already been assigned');
+              }
+
+              $klass= new assignclass();          
+              $klass->session=$request->session;
+              $klass->level=$request->level;
+              $klass->name=$request->klass;
+              $klass->term=$request->term;
+    
+              $klass->teacher_name=$request->teacher;
+             
+            
+              $klass->save();
+
+              return back()->with('success','subject successfully assigned');
+            }
+            elseif($request->action == 'delete'){
+               $delete = assignclass::find( $request->id);
+                 
+              $delete->delete();
+               return back()->with('success','Teacher Deleted Successfully deleted');
+            }
+            else
+            {
+                return back()->with('error','We dont know what you are talking about');
+            }
+        }    
+}
 
 
 

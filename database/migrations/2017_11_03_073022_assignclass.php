@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Term extends Migration
+class Assignclass extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class Term extends Migration
      */
     public function up()
     {
-         Schema::create('terms', function (Blueprint $table) {
+        Schema::create('assignclasses', function (Blueprint $table) {
             $table->increments('id')->unique();
-            $table->string('name');
-             $table->string('words');
-            $table->string('current');
+            $table->string('name')->nullable();
+            $table->string('level')->nullable();
+            $table->string('session')->nullable();
+            $table->string('term')->nullable();
+            $table->string('teacher_name')->nullable();
+            $table->string('teacher_username')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class Term extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('terms');
+        //
     }
 }

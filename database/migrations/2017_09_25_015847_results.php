@@ -34,6 +34,7 @@ class Results extends Migration
             $table->string('grade')->default(0);
             $table->string('subject_position')->default(0);
             $table->string('class_position')->default(0); 
+             $table->string('approved')->default(0); 
             $table->timestamps();
         });
     }

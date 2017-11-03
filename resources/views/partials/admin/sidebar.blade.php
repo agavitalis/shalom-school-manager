@@ -12,18 +12,26 @@
                   <li><a href="/admin/subject"><i class="fa fa-calendar"></i> Manage Subjects</a></li>
                  
                   
-                  <li><a><i class="fa fa-group"></i> My Students <span class="fa fa-chevron-down"></span></a>
+                 
+
+                  <li><a><i class="fa fa-graduation-cap"></i>My Teachers<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/admin/registerteachers">Register New Teacher(s)</a></li>
+                       <li><a href="/admin/manageteachers">Manage My Teachers</a></li>  
+                    </ul>
+                  </li>
+                   <li><a><i class="fa fa-pencil-square-o"></i> Manage Duties <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                       <li><a href="/admin/assignsubject">Manage Assigned Subjects</a></li>
+                       <li><a href="/admin/assignclass">Manage Form Teachers</a></li>
+                     
+                    </ul>
+                  </li>
+                   <li><a><i class="fa fa-group"></i> My Students <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                        <li><a href="/admin/registerstudents">Register new Student(s)</a></li>
                        <li><a href="/admin/managestudents">Manage my Students</a></li>
                      
-                    </ul>
-                  </li>
-
-                  <li><a><i class="fa fa-graduation-cap"></i>My Teachers<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/admin/registerteachers">Register new Teacher(s)</a></li>
-                       <li><a href="/admin/manageteachers">Manage My Teachers</a></li>  
                     </ul>
                   </li>
                    <li><a><i class="fa fa-clone"></i>Student's Results<span class="fa fa-chevron-down"></span></a>
