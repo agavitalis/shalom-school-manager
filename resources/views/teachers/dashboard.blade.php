@@ -13,32 +13,32 @@
             <div class="row top_tiles">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
-                  <div class="count">179</div>
+                  <div class="icon"><i class="fa fa-file-word-o"></i></div>
+                  <div class="count">{{$mysubjects}}</div>
                   <h3>My Subjects</h3>
                   <p>Number of Subjects Assigned to me.</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-comments-o"></i></div>
-                  <div class="count">179</div>
-                  <h3>My Class</h3>
-                  <p>No of Students in my Class.</p>
+                  <div class="icon"><i class="fa fa-users"></i></div>
+                  <div class="count">{{$myclasses}}</div>
+                  <h3>My Classes</h3>
+                  <p>No of Class Assigned to me.</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                  <div class="count">179</div>
-                  <h3>My Assignments</h3>
-                  <p>No of Assignments I have given.</p>
+                  <div class="icon"><i class="fa fa-paper-plane"></i></div>
+                  <div class="count">{{$myresults}}</div>
+                  <h3>My Results</h3>
+                  <p>No of Results I have uploaded.</p>
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                  <div class="count">179</div>
+                  <div class="icon"><i class="fa fa-envelope-o"></i></div>
+                  <div class="count">0</div>
                   <h3>Notifications</h3>
                   <p>Notifications from authorities.</p>
                 </div>
@@ -62,9 +62,9 @@
                 <div class="x_content">
 
                   <div class="bs-example" data-example-id="simple-jumbotron">
-                    <div class="jumbotron">
-                      <h1>Hello, Vitalis!</h1>
-                      <p>Good evening, Welcome to the University of Nigeria Portal,How was your Day.</p>
+                    <div class="jumbotron welcome">
+                       <h1>Hello, {{Auth::user()->name}}!</h1>
+                      <p>Welcome to the School Portal,We are glad to have you back.</p>
                     </div>
                   </div>
 

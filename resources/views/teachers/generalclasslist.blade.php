@@ -11,7 +11,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Complete list of results in the classes assigned to you</h3>
+                <h3>Complete list of students according to their current class</h3>
               </div>
 
               <div class="title_right">
@@ -34,7 +34,7 @@
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Complete list of all your students results</h2>
+                    <h2>Complete students list based on class</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -49,7 +49,7 @@
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                     Here are the result of students in your class ).
+                     Here are your students in each class ).
                     </p>
                     <table id="datatable-buttons" class="table table-striped table-bordered  dt-responsive nowrap" cellspacing="0" width="100%">
                      <thead>
@@ -58,43 +58,31 @@
                         <th>Reg No</th>
                       
                         <th>Session</th>
-                        <th>CA</th> 
-                         <th>Test</th>
-                        <th>Exam</th>
-                        <th>Total</th>   
+                        <th>Level</th> 
                         <th>Term</th> 
                         <th>Class</th>                         
                         </tr>
                       </thead>
                       <tbody>
-                       @foreach($results as $result )   
+                       @foreach($users as $user )   
                        <tr>
                          <td>
-                           <a>{{$result->name}}</a>
+                           <a>{{$user->name}}</a>
                           </td>
                           <td>
-                           <a>{{$result->username}}</a>
+                           <a>{{$user->username}}</a>
                           </td>
                           <td>
-                           <a>{{$result->session}}</a>
+                           <a>{{$user->session}}</a>
                           </td>
                            <td>
-                           <a>{{$result->continous_accessment}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->test}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->exam}}</a>
-                          </td>
-                          <td>
-                           <a>{{$result->total}}</a>
+                           <a>{{$user->level}}</a>
                           </td>
                             <td>
-                           <a>{{$result->term}}</a>
+                           <a>{{$user->term}}</a>
                           </td>
                            <td>
-                           <a>{{$result->class}}</a>
+                           <a>{{$user->class}}</a>
                           </td>
                          
                           
@@ -123,14 +111,14 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form class="form-horizontal form-label-left input_mask" action="/tutor/myclassresult" method="post">
+                        <form class="form-horizontal form-label-left input_mask" action="/tutor/generalclasslist" method="post">
                             {{csrf_field()}}
                         <input type="hidden" name="action" value="search">
                        
                                                 
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Your Class(es)<span class="required">*</span></label>
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12"> Class(es)<span class="required">*</span></label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
                             <select class="form-control" required="" name="klass">
                                 <option disabled ="" selected ="">Select Class</option>
@@ -141,49 +129,13 @@
                             </select>
                             </div>
                         </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="term">
-                                <option disabled ="" selected ="">Select Term</option>
-                                @foreach($terms as $term)
-                                <option value = "{{$term->name}}">{{$term->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="subject">
-                                <option disabled ="" selected ="">Select Subject</option>
-                                @foreach($subjects as $subject)
-                                <option value = "{{$subject->name}}">{{$subject->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="session">
-                                <option disabled ="" selected ="">Select Session</option>
-                                @foreach($sessions as $session)
-                                <option value = "{{$session->name}}">{{$session->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                        
-                        
+                    
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                             
-                            <button type="submit" class="btn btn-success">Show Students Results</button>
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success">Show Students</button>
                             </div>
                         </div>
 

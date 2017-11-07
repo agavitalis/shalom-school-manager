@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('header')
-@include('partials.teachers.header')
+@include('partials.admin.header')
 @endsection
 
 
@@ -11,7 +11,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Complete list of results in the classes assigned to you</h3>
+                <h3>Promote or Demote students here</h3>
               </div>
 
               <div class="title_right">
@@ -29,72 +29,55 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              
-            
-            <div class="col-md-8 col-sm-12 col-xs-12">
+              <div class="col-md-8">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Complete list of all your students results</h2>
+                    <h2>Students can be promoted to the next Level here </h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        
-                      </li>
+                     
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+                  <form action="/admin/givestudentslevel" method="post">
+                  {{csrf_field()}}
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                     Here are the result of students in your class ).
-                    </p>
-                    <table id="datatable-buttons" class="table table-striped table-bordered  dt-responsive nowrap" cellspacing="0" width="100%">
-                     <thead>
+
+                    <p>Promote or demote these students</p>
+
+                    <!-- start project list -->
+                    <table id="datatable" class="table table-striped table-bordered  dt-responsive nowrap" cellspacing="0" width="100%">
+                      <thead>
                         <tr>
                         <th>Student Name</th> 
                         <th>Reg No</th>
-                      
-                        <th>Session</th>
-                        <th>CA</th> 
-                         <th>Test</th>
-                        <th>Exam</th>
-                        <th>Total</th>   
-                        <th>Term</th> 
-                        <th>Class</th>                         
+                        <th>Current Level</th> 
+                        <th>Current Class</th>
+                         <th>Select Student</th> 
                         </tr>
                       </thead>
                       <tbody>
-                       @foreach($results as $result )   
+                       @foreach($users as $user )   
                        <tr>
                          <td>
-                           <a>{{$result->name}}</a>
+                           <a>{{$user->name}}</a>
                           </td>
                           <td>
-                           <a>{{$result->username}}</a>
+                           <a>{{$user->username}}</a>
                           </td>
                           <td>
-                           <a>{{$result->session}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->continous_accessment}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->test}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->exam}}</a>
+                           <a>{{$user->level}}</a>
                           </td>
                           <td>
-                           <a>{{$result->total}}</a>
-                          </td>
-                            <td>
-                           <a>{{$result->term}}</a>
+                           <a>{{$user->class}}</a>
                           </td>
                            <td>
-                           <a>{{$result->class}}</a>
+                           
+                          <input type="checkbox" name="student[]" id="hobby2" value="{{$user->id}}" class="flat" /> Select Student
+                        
                           </td>
                          
                           
@@ -102,16 +85,35 @@
                         @endforeach
                       </tbody>
                     </table>
+                    <!-- end project list -->
+                    <div class="ln_solid"></div>
+                        <input type="hidden" name="action" value="givelevel">
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="level">
+                                <option disabled ="" selected ="">Select Level</option>
+                                @foreach($levels as $level)
+                                <option value = "{{$level->name}}">{{$level->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 ">
+                            
+                            <button type="submit" class="btn btn-success">Promote or Demote to this Level</button>
+                            </div>
+                        </div>
                   </div>
+                  </form>
                 </div>
               </div>
+            
 
                <div class="col-md-4 col-xs-12">
-
-
                     <div class="x_panel">
                     <div class="x_title">
-                        <h2>Show <small>Students based on selection</small></h2>
+                        <h2>Assign <small>new Levels to students in the selected level</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -123,67 +125,28 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form class="form-horizontal form-label-left input_mask" action="/tutor/myclassresult" method="post">
+                        <form class="form-horizontal form-label-left input_mask" action="/admin/givestudentslevel" method="post">
                             {{csrf_field()}}
-                        <input type="hidden" name="action" value="search">
-                       
-                                                
-
+                        <input type="hidden" name="action" value="showlevel">
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Your Class(es)<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="klass">
-                                <option disabled ="" selected ="">Select Class</option>
-                                @foreach($klasses as $klass)
-                                <option value = "{{$klass->name}}">{{$klass->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="term">
-                                <option disabled ="" selected ="">Select Term</option>
-                                @foreach($terms as $term)
-                                <option value = "{{$term->name}}">{{$term->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="subject">
-                                <option disabled ="" selected ="">Select Subject</option>
-                                @foreach($subjects as $subject)
-                                <option value = "{{$subject->name}}">{{$subject->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="session">
-                                <option disabled ="" selected ="">Select Session</option>
-                                @foreach($sessions as $session)
-                                <option value = "{{$session->name}}">{{$session->name}}</option>
+                            <select class="form-control" required="" name="level">
+                                <option disabled ="" selected ="">Select level</option>
+                                @foreach($levels as $level)
+                                <option value = "{{$level->name}}">{{$level->name}}</option>
 
                                 @endforeach
                             </select>
                             </div>
                         </div>
-                        
                         
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                             
-                            <button type="submit" class="btn btn-success">Show Students Results</button>
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success">Show Students</button>
                             </div>
                         </div>
 
@@ -191,7 +154,6 @@
                     </div>
                     </div>
 
-                   
                
 
 
@@ -211,7 +173,7 @@
 
 
 @section('footer')
-  @include('partials.teachers.footer')
+  @include('partials.admin.footer')
 @endsection
 
 

@@ -20,10 +20,10 @@
                        <li><a href="/admin/manageteachers">Manage My Teachers</a></li>  
                     </ul>
                   </li>
-                   <li><a><i class="fa fa-pencil-square-o"></i> Manage Duties <span class="fa fa-chevron-down"></span></a>
+                   <li><a><i class="fa fa-pencil-square-o"></i> Teachers Duties <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                       <li><a href="/admin/assignsubject">Manage Assigned Subjects</a></li>
-                       <li><a href="/admin/assignclass">Manage Form Teachers</a></li>
+                       <li><a href="/admin/assignsubject">Manage Teacher Subjects</a></li>
+                       <li><a href="/admin/assignclass">Manage Form/Head Teachers</a></li>
                      
                     </ul>
                   </li>
@@ -31,6 +31,14 @@
                     <ul class="nav child_menu">
                        <li><a href="/admin/registerstudents">Register new Student(s)</a></li>
                        <li><a href="/admin/managestudents">Manage my Students</a></li>
+                      <li><a href="/admin/printstudents">View and Print Students</a></li>
+                     
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-share"></i>Assign Classes/Levels <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                       <li><a href="/admin/givestudentsclasses">Assign Student(s) Class(es)</a></li>
+                       <li><a href="/admin/givestudentslevel">Assign Student(s) Level(es)</a></li>
                      
                     </ul>
                   </li>

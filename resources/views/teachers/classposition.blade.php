@@ -11,7 +11,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Complete list of results in the classes assigned to you</h3>
+                <h3>Calculate you class position here</h3>
               </div>
 
               <div class="title_right">
@@ -31,7 +31,7 @@
             <div class="row">
               
             
-            <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Complete list of all your students results</h2>
@@ -55,15 +55,18 @@
                      <thead>
                         <tr>
                         <th>Student Name</th> 
-                        <th>Reg No</th>
-                      
+                        <th>Reg No</th>  
                         <th>Session</th>
+                        <th>Term</th>
+                        <th>Class</th>
                         <th>CA</th> 
-                         <th>Test</th>
+                        <th>Test</th>
                         <th>Exam</th>
                         <th>Total</th>   
-                        <th>Term</th> 
-                        <th>Class</th>                         
+                       
+                        <th>Grade</th>
+                        <th>Teacher's Name</th> 
+                                                
                         </tr>
                       </thead>
                       <tbody>
@@ -78,6 +81,12 @@
                           <td>
                            <a>{{$result->session}}</a>
                           </td>
+                          <td>
+                           <a>{{$result->term}}</a>
+                          </td>
+                           <td>
+                           <a>{{$result->class}}</a>
+                          </td>
                            <td>
                            <a>{{$result->continous_accessment}}</a>
                           </td>
@@ -90,12 +99,13 @@
                           <td>
                            <a>{{$result->total}}</a>
                           </td>
-                            <td>
-                           <a>{{$result->term}}</a>
+                          <td>
+                           <a>{{$result->grade}}</a>
                           </td>
-                           <td>
-                           <a>{{$result->class}}</a>
+                          <td>
+                           <a>{{$result->subject_teacher}}</a>
                           </td>
+                            
                          
                           
                         </tr> 
@@ -106,12 +116,12 @@
                 </div>
               </div>
 
-               <div class="col-md-4 col-xs-12">
+               <div class="col-md-6  col-xs-12">
 
 
                     <div class="x_panel">
                     <div class="x_title">
-                        <h2>Show <small>Students based on selection</small></h2>
+                        <h2>Show <small>Results based on selection</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -123,9 +133,9 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form class="form-horizontal form-label-left input_mask" action="/tutor/myclassresult" method="post">
+                        <form class="form-horizontal form-label-left input_mask" action="/tutor/classposition" method="post">
                             {{csrf_field()}}
-                        <input type="hidden" name="action" value="search">
+                        <input type="hidden" name="action" value="show">
                        
                                                 
 
@@ -153,18 +163,7 @@
                             </select>
                             </div>
                         </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="subject">
-                                <option disabled ="" selected ="">Select Subject</option>
-                                @foreach($subjects as $subject)
-                                <option value = "{{$subject->name}}">{{$subject->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
+                         
                          <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
@@ -197,6 +196,86 @@
 
               </div>
 
+
+                <div class="col-md-6  col-xs-12">
+
+
+                    <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Calculate <small>Positions based on selection</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                       
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form class="form-horizontal form-label-left input_mask" action="/tutor/classposition" method="post">
+                            {{csrf_field()}}
+                        <input type="hidden" name="action" value="position">
+                       
+                                                
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Your Class(es)<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="klass">
+                                <option disabled ="" selected ="">Select Class</option>
+                                @foreach($klasses as $klass)
+                                <option value = "{{$klass->name}}">{{$klass->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="term">
+                                <option disabled ="" selected ="">Select Term</option>
+                                @foreach($terms as $term)
+                                <option value = "{{$term->name}}">{{$term->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+                         
+                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="session">
+                                <option disabled ="" selected ="">Select Session</option>
+                                @foreach($sessions as $session)
+                                <option value = "{{$session->name}}">{{$session->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                            
+                            <button type="submit" class="btn btn-danger">Calculate Students Positions</button>
+                            </div>
+                        </div>
+
+                        </form>
+                    </div>
+                    </div>
+
+                   
+               
+
+
+              </div>
 
 
 

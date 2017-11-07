@@ -31,10 +31,10 @@
             <div class="row">
               
             
-            <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Complete list of all your students results</h2>
+                    <h2>Your students results and their class positions</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -49,21 +49,20 @@
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                     Here are the result of students in your class ).
+                     Here are the result of students in your class.
                     </p>
                     <table id="datatable-buttons" class="table table-striped table-bordered  dt-responsive nowrap" cellspacing="0" width="100%">
                      <thead>
                         <tr>
                         <th>Student Name</th> 
                         <th>Reg No</th>
-                      
-                        <th>Session</th>
-                        <th>CA</th> 
-                         <th>Test</th>
-                        <th>Exam</th>
-                        <th>Total</th>   
-                        <th>Term</th> 
-                        <th>Class</th>                         
+                        <th>Session</th>  
+                        <th>Class</th>   
+                        <th>Term</th>
+                         <th>No of Subjects</th>
+                        <th>Total</th>
+                        <th>Average</th>
+                        <th>Position</th>                              
                         </tr>
                       </thead>
                       <tbody>
@@ -77,25 +76,25 @@
                           </td>
                           <td>
                            <a>{{$result->session}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->continous_accessment}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->test}}</a>
-                          </td>
-                           <td>
-                           <a>{{$result->exam}}</a>
+                         <td>
+                           <a>{{$result->class}}</a>
                           </td>
                           <td>
-                           <a>{{$result->total}}</a>
-                          </td>
-                            <td>
                            <a>{{$result->term}}</a>
                           </td>
                            <td>
-                           <a>{{$result->class}}</a>
+                           <a>{{$result->total_no_of_subjects}}</a>
                           </td>
+                          <td>
+                           <a>{{$result->total_score}}</a>
+                          </td>
+                          <td>
+                           <a>{{$result->average}}</a>
+                          </td>
+                          <td>
+                           <a>{{$result->position}}</a>
+                          </td>
+                           
                          
                           
                         </tr> 
@@ -106,7 +105,7 @@
                 </div>
               </div>
 
-               <div class="col-md-4 col-xs-12">
+               <div class="col-md-6 col-md-offset-3 col-xs-12">
 
 
                     <div class="x_panel">
@@ -123,9 +122,9 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form class="form-horizontal form-label-left input_mask" action="/tutor/myclassresult" method="post">
+                        <form class="form-horizontal form-label-left input_mask" action="/tutor/showposition" method="post">
                             {{csrf_field()}}
-                        <input type="hidden" name="action" value="search">
+                        <input type="hidden" name="action" value="position">
                        
                                                 
 
@@ -153,18 +152,7 @@
                             </select>
                             </div>
                         </div>
-                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="subject">
-                                <option disabled ="" selected ="">Select Subject</option>
-                                @foreach($subjects as $subject)
-                                <option value = "{{$subject->name}}">{{$subject->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
+                    
                          <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span class="required">*</span></label>
                             <div class="col-md-8 col-sm-6 col-xs-12">

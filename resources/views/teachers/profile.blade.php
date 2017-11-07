@@ -12,7 +12,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Student Profile</h3>
+                <h3>Teachers Profile</h3>
               </div>
 
               <div class="title_right">
@@ -53,11 +53,13 @@
                       <h3>Samuel Doe</h3>
 
                       <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+                        <li><i class="fa fa-map-marker user-profile-icon"></i>{{Auth::user()->email}}
+                        </li>
+                        <li><i class="fa fa-map-marker user-profile-icon"></i>{{Auth::user()->phone}}
                         </li>
 
                         <li>
-                          <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
+                          <i class="fa fa-briefcase user-profile-icon"></i> {{Auth::user()->gender}}
                         </li>
 
                         <li class="m-top-xs">
@@ -74,31 +76,13 @@
                       <ul class="list-unstyled user_data">
                         <li>
                           <p>Web Applications</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
+                          <div >
+                            <p>Web Applications</p>
                           </div>
                         </li>
-                        <li>
-                          <p>Website Design</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"></div>
-                          </div>
-                        </li>
-                        <li>
-                          <p>Automation & Testing</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"></div>
-                          </div>
-                        </li>
-                        <li>
-                          <p>UI / UX</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                          </div>
-                        </li>
+                       
                       </ul>
                       <!-- end of skills -->
-
                     </div>
                    
                   </div>

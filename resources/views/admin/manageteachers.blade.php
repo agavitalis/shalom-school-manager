@@ -72,11 +72,17 @@
                           <td>{{$teacher->username}}</td>
                          
                            <td><a href="/admin/editteacher/{{$teacher->id}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> View Profile </a></td>
-                          <td><a href="#" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i>Assign Subjects </a></td>  
-                          <td><a href="#" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i>Assign Classes </a></td>        
-                       
-                        <td><a href="#" class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i>Delete Teacher </a></td>        
-                        </tr>
+                          <td><a href="/admin/assignsubject" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i>Assign Subjects </a></td>  
+                          <td><a href="/admin/assignclass" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i>Assign Classes </a></td>        
+                          <td>
+                              <form  action="/admin/manageteachers" method="post">
+                                   {{csrf_field()}}
+                                  <input type="hidden" name="id" value ="{{$teacher->id}}">
+                                  <input type="submit" class="btn btn-danger btn-xs" value="Delete ">
+                               </form>
+                           
+                          </td>  
+                          </tr>
                        @endforeach 
                        <!--  <tr>
                           <td>Tiger Nixon</td>

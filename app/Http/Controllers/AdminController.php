@@ -387,33 +387,50 @@ public function adminprofile(){
 
 public function admineditprofile(Request $update){
 
-    if($update->isMethod('POST'))
+   
+      if($update->isMethod('POST'))
     {
-      $this->validate($update,[
+       if($update->action == 'basic'){
+             //since we are updating, we done insta
+            $user=user::find(Auth::user()->id);
+            $user->phone=$update->phone;
+            $user->gender=$update->gender;
 
-        'email'=>["required",Rule::unique('users')->ignore(Auth::id())],
-        'phone'=>'required',
-        'dateofbirth'=>'required',
-        'gender'=>'required'
-        
-        ]);
+            $user->save();
+            return back()->with('success','Profile successfully updated');
 
-      //since we are updating, we done insta
-      $user=user::find(Auth::user()->id);
+       }
+       elseif($update->action == 'background'){
+             //since we are updating, we done insta
+            $user=user::find(Auth::user()->id);
+            $user->country=$update->country;
+            $user->address=$update->address;
+            $user->lga=$update->lga;
+            $user->state=$update->state;
 
-     // dd($user);
-      $user->email=$update->email;
-      $user->phone=$update->phone;
-      $user->dateofbirth=$update->dateofbirth;
-      $user->gender=$update->gender;
+            $user->save();
+            return back()->with('success','Profile successfully updated');
 
-      $user->save();
-      return redirect()->back()->with('status','Profile succefully updated');
+       }
+     elseif($update->action == 'final'){
+
+             $user=user::find(Auth::user()->id);
+            $user->skills=$update->skills;
+            $user->intrest=$update->intrest;
+            $user->quotes=$update->quotes;
+           
+             $user->postsheld=$update->postsheld;
+              $user->dateofbirth=$update->dateofbirth;
+
+            $user->save();
+            return back()->with('success','Profile successfully updated');
+     }
+     
     }
     elseif($update->isMethod('GET'))
     {
         return view('admin.editprofile');
-    }    
+    }     
 }
 
 
@@ -719,9 +736,118 @@ public function assignclass(Request $request) {
         }    
 }
 
+public function givestudentsclasses(Request $request){
 
+   if($request->isMethod('GET'))
+  {
+    $users=DB::table('users')->where('usertype','student')->get();
+    $levels=DB::table('levels')->get();
+    $klasses=DB::table('klasses')->get();
+    return view('admin.givestudentsclasses',compact('users','levels','klasses'));
+  } 
+  elseif($request->isMethod('POST'))
+  {
+    if($request->action=='showlevel'){
+      $users=DB::table('users')->where('level',$request->level)->get();
+      $levels=DB::table('levels')->get();
+      $klasses=DB::table('klasses')->get();
+      return view('admin.givestudentsclasses',compact('users','levels','klasses'));
+    }
+    elseif($request->action=='giveclass'){
 
-    // public function studymaterials()
+      $emeka=$request->klass;
+      foreach($request->student as $id){
+
+           $student = user::find($id);
+           $student->class=$emeka;
+           $student->save();
+           
+
+      }
+      return back()->with('success','New Class successfully assigned to the selected students');
+     }
+     else
+     {
+        return back()->with('error','We dont know what you are talking about');
+   
+     }
+
+  } 
+}
+
+public function givestudentslevel(Request $request){
+
+   if($request->isMethod('GET'))
+  {
+    $users=DB::table('users')->where('usertype','student')->get();
+    $levels=DB::table('levels')->get();
+    $klasses=DB::table('klasses')->get();
+    return view('admin.givestudentslevel',compact('users','levels','klasses'));
+  } 
+  elseif($request->isMethod('POST'))
+  {
+    if($request->action=='showlevel'){
+      $users=DB::table('users')->where('level',$request->level)->get();
+      $levels=DB::table('levels')->get();
+      $klasses=DB::table('klasses')->get();
+      return view('admin.givestudentslevel',compact('users','levels','klasses'));
+    }
+    elseif($request->action=='givelevel'){
+
+      $emeka=$request->level;
+      foreach($request->student as $id){
+
+           $student = user::find($id);
+           $student->level=$emeka;
+           $student->save();
+           
+
+      }
+      return back()->with('success','New Class successfully assigned to the selected students');
+     }
+     else
+     {
+        return back()->with('error','We dont know what you are talking about');
+   
+     }
+
+  } 
+}
+
+public function printstudents(Request $request){
+
+   if($request->isMethod('GET'))
+  {
+    $users=DB::table('users')->where('usertype','student')->get();
+    $levels=DB::table('levels')->get();
+    $klasses=DB::table('klasses')->get();
+    
+    return view('admin.printstudents',compact('users','levels','klasses'));
+  } 
+  elseif($request->isMethod('POST'))
+  {
+    if($request->action=='level'){
+      $users=DB::table('users')->where('level',$request->level)->get();
+      $levels=DB::table('levels')->get();
+      $klasses=DB::table('klasses')->get();
+      return view('admin.printstudents',compact('users','levels','klasses'));
+    }
+  
+    elseif($request->action=='klass'){
+      $users=DB::table('users')->where('class',$request->klass)->get();
+      $levels=DB::table('levels')->get();
+      $klasses=DB::table('klasses')->get();
+     // dd($users);
+      return view('admin.printstudents',compact('users','levels','klasses'));
+    }
+  
+   else
+     {
+        return back()->with('error','We dont know what you are talking about');
+   
+     }
+ } 
+}   // public function studymaterials()
     // {
     //     return view('admin.studymaterials');
     // }

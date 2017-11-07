@@ -51,150 +51,43 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Subject Name</th>
-                          <th>No of Teachers</th>
-                          <th>Teacher's Name</th>
-                          <th style="width: 20%">#Study Materials</th>
-                           <th style="width: 20%">#Course Outline</th>
+                          <th>Subject Name</th>
+                          <th>Teacher Name</th>
+                          <th>Session</th>
+                          <th>Level</th>
+                          <th>Term</th>
+                          <th>Class</th>
+                          <th>Are you the Coordinator?</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
+                        
+                          @foreach($mysubjects as $mysubject)
                           <td>#</td>
                           <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
+                            <a>{{$mysubject->name}}</a>
                           </td>
                           <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
+                            <a>{{$mysubject->teacher_name}}</a>
                           </td>
                           <td>
-                            
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Upload </a>
-                            
+                            <a>{{$mysubject->session}}</a>
+                          </td>
+                          <td>
+                            <a>{{$mysubject->level}}</a>
                           </td>
                            <td>
-                           
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> UploadS </a>
-                            
-                          </td>
-                        </tr>
-                      <tr>
-                          <td>#</td>
-                          <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
-                          </td>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Upload </a>
-                            
+                            <a>{{$mysubject->term}}</a>
                           </td>
                            <td>
-                           
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> UploadS </a>
-                            
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
-                          </td>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Upload </a>
-                            
+                            <a>{{$mysubject->class}}</a>
                           </td>
                            <td>
-                           
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> UploadS </a>
-                            
+                            <a>{{$mysubject->is_coordinator}}</a>
                           </td>
-                        </tr>
-
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
-                          </td>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="/images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Upload </a>
-                            
-                          </td>
-                           <td>
-                           
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> UploadS </a>
-                            
-                          </td>
-                        </tr>
-                       
-                       
+                          @endforeach
+                         
                         
                        
                       </tbody>

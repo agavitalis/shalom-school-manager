@@ -13,13 +13,7 @@
                   <li><a><i class="fa fa-book"></i>Subjects <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/subjects">View Subjects</a></li>
-                      <li><a href="/scheme">Study Materials</a></li>
                     </ul>
-                  </li>
-                  <li><a href="/announcement"><i class="fa fa-table"></i>Announcement<span class="fa fa-chevron-down"></span></a>
-                  </li>
-                  <li><a href="/assignment"><i class="fa fa-bar-chart-o"></i>Assignments</a>
-                    
                   </li>
                   <li><a href="/results"><i class="fa fa-clone"></i>Check Results</a></li>
                 </ul>
