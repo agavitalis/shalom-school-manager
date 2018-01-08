@@ -182,8 +182,9 @@ public function subject(Request $request){
      if($request->isMethod('GET'))
     {
         $subjects=DB::table('subjects')->get();
+        $levels=DB::table('levels')->get();
        // dd($sessions);
-      	return view('admin.subject',compact('subjects'));
+      	return view('admin.subject',compact('subjects','levels'));
     }
     elseif($request->isMethod('POST'))
     {
@@ -193,6 +194,9 @@ public function subject(Request $request){
       $subject = new Subject();
       $subject->name=$request->subject;
       $subject->abbreviation=$request->abb;
+      $subject->category=$request->category;
+      $subject->level=$request->level;
+
       $subject->save();
       return back()->with('success','Subject successfully added');
       }
@@ -514,7 +518,7 @@ public function importsteacher(Request $request)
                     DB::table('users')->insert($user);
                     DB::table('teachers')->insert($teacher);
                     //dd('Insert Record successfully.');
-                    return back()->with('success','Insert Record successfully.');
+                    return back()->with('success','Teachers successfully created.');
                 }
             }
         }
@@ -533,6 +537,8 @@ public function manageteachers(Request $request){
       elseif($request->isMethod('POST'))
       {
         $user=user::find($request->id);
+
+        //dd($user);
         DB::table('teachers')->where('username',$user->username)->delete();
         $user->delete();
       

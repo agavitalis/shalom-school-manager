@@ -15,6 +15,7 @@
                       <li><a href="/tutor/mysubjects">View my Subjects</a></li>
                       <li><a href="/tutor/uploadresults">Upload Results</a></li>
                       <li><a href="/tutor/mysubjectsresult">View my Results</a></li>
+                      <li><a href="/tutor/deletesubresult">Delete my Results</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-clone"></i>My Assigned Class<span class="fa fa-chevron-down"></span></a>

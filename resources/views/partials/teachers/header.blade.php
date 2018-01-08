@@ -34,7 +34,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-graduation-cap"></i> <span>Smart Kid</span></a>
+              <a href="/tutor/dashboard" class="site_title"><i class="fa fa-graduation-cap"></i> <span>Smart Kid</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -106,18 +106,18 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class="badge bg-green">0</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
                         <span class="image"><img src="../images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>>{{ Auth::user()->name }}</span>
+                          <span>Announcer</span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                         No messages yet
                         </span>
                       </a>
                     </li>

@@ -29,7 +29,7 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-7">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Some registered subject in the school </h2>
@@ -52,7 +52,9 @@
                         <tr>
                         <th>Subject</th> 
                         <th>Subject Abbreviation</th>
-                          <th style="width: 20%">#Delete</th>  
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th style="width: 20%">#Delete</th>  
                         </tr>
                       </thead>
                       <tbody>
@@ -63,6 +65,12 @@
                           </td>
                           <td>
                            <a>{{$subject->abbreviation}}</a>
+                          </td>
+                          <td>
+                           <a>{{$subject->category}}</a>
+                          </td>
+                          <td>
+                           <a>{{$subject->level}}</a>
                           </td>
                       
                             <td>
@@ -86,7 +94,7 @@
                 </div>
               </div>
 
-               <div class="col-md-6 col-xs-12">
+               <div class="col-md-5 col-xs-12">
                     <div class="x_panel">
                     <div class="x_title">
                         <h2>Register <small>new subject here(Eg:Mathematics)</small></h2>
@@ -117,6 +125,26 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                             <input class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="abb" placeholder="Eg: ENG">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject Category <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="category" placeholder="Eg:Arts,Science, General">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Level <span class="required">*</span>
+                            </label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" required="" name="level">
+                              <option disabled ="" selected ="">Select Level</option>
+                              @foreach($levels as $level)
+                              <option value = "{{$level->name}}">{{$level->name}}</option>
+
+                              @endforeach
+                            </select>
+                          </div>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">

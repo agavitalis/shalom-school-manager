@@ -54,4 +54,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    //to over ride Laraveldefault use of email,we say 
+    //protected $username = 'username'; or
+    protected function username()
+    {
+        return 'username';
+    }
 }

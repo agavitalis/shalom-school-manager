@@ -2941,6 +2941,31 @@ ul.messages li,
     border-bottom: 1px dotted #e6e6e6;
     padding: 8px 0
 }
+.avatar-view{
+    max-height:220px;
+    max-width:220px;
+
+}
+.result-pad{
+    padding-left: 5em;
+}
+.login-img{
+    margin:auto;
+    background: #fff;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    margin-top: 2em;
+    border-radius: 50%;
+    max-width: 150px;
+    
+}
+.profile-detail{
+    padding-top:2.3em;
+}
+.result-img{
+    max-height: 120px;
+    max-width: 120;
+
+}
 ul.messages li img.avatar,
 img.avatar {
     height: 32px;
@@ -3433,7 +3458,6 @@ a.hiddenanchor {
 .login_wrapper {
     right: 0px;
     margin: 0px auto;
-    margin-top: 5%;
     max-width: 350px;
     position: relative
 }
@@ -3564,7 +3588,8 @@ form:after {
 }
 .login_content form input[type="text"],
 .login_content form input[type="email"],
-.login_content form input[type="password"] {
+.login_content form input[type="password"],
+.sel-check {
     border-radius: 3px;
     -ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
     -o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
@@ -3729,6 +3754,19 @@ fieldset {
     background-color: #f7f7f7;
     width: 100%;
     text-align: center
+}
+.zero-margin{
+    margin-bottom:2px;
+    margin-top:2px;
+}
+.result-print>tbody>tr>td
+{
+    padding: 2px;
+    vertical-align: none; 
+    border-top: 1px solid #ddd;
+}  
+.margin-b{
+    margin-bottom:0px;
 }
 .cropper .img-container {
     min-height: 200px;

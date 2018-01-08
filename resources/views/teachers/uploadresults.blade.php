@@ -12,7 +12,7 @@
      <div class="">
        <div class="page-title">
          <div class="title_left">
-           <h3>Form Elements</h3>
+           <h3>Upload your result</h3>
          </div>
 
          <div class="title_right">
@@ -27,76 +27,175 @@
          </div>
        </div>
        <div class="clearfix"></div>
-       <div class="row">
-         <div class="col-md-12 col-sm-12 col-xs-12">
-           <div class="x_panel">
-             <div class="x_title">
-               <h2>Form Design <small>different form elements</small></h2>
-               <ul class="nav navbar-right panel_toolbox">
-                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                 </li>
-                 
-                 <li><a class="close-link"><i class="fa fa-close"></i></a>
-                 </li>
-               </ul>
-               <div class="clearfix"></div>
-             </div>
-             <div class="x_content">
-              
-<hr>                 
-<div class="container">   
-<div class="panel panel-primary">
- <div class="panel-body">
+        <div class="row">
 
-    @if ($message = Session::get('success'))
-     <div class="alert alert-success" role="alert">
-       {{ Session::get('success') }}
-     </div>
-   @endif
+          <div class="col-md-6 col-sm-12 col-xs-12">
+             <div class="x_panel">
+               <div class="x_title">
+                 <h2>Results sheet sample </h2>
+                 <ul class="nav navbar-right panel_toolbox">
+                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   </li>
+                   
+                   <li><a class="close-link"><i class="fa fa-close"></i></a>
+                   </li>
+                 </ul>
+                 <div class="clearfix"></div>
+               </div>
+               <div class="x_content">             
+                  <hr>                 
+                  <div class="container">   
+                  <div class="panel panel-primary">
+                  <div class="panel-body">
 
-   @if ($message = Session::get('error'))
-     <div class="alert alert-danger" role="alert">
-       {{ Session::get('error') }}
-     </div>
-   @endif
+                      @if ($message = Session::get('success'))
+                      <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                      </div>
+                    @endif
 
-   <h3>Import File Form:</h3>
-  <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px; text-align:center"
-   action="{{ URL::to('tutor/uploadresults') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    @if ($message = Session::get('error'))
+                      <div class="alert alert-danger" role="alert">
+                        {{ Session::get('error') }}
+                      </div>
+                    @endif
 
-           <input type="file" name="import_file" />
-           {{ csrf_field() }}
-           <br/>
+            
 
-           <button class="btn btn-primary">Import Students List to Database</button>
+                      
+                      <h3>Download a result sheet sample:</h3>
+                      <div style="border: 1px solid #a1a1a1;margin-top: 15px;padding: 20px; text-align:center">     
+                        <a href="{{ url('resultsheet/xls') }}"><button class="btn btn-success btn-lg">Download Excel xls</button></a>
+                      <a href="{{ url('resultsheet/xlsx') }}"><button class="btn btn-success btn-lg">Download Excel xlsx</button></a>
+                      <a href="{{ url('resultsheet/csv') }}"><button class="btn btn-success btn-lg">Download CSV</button></a>
+                      </div>
 
-   </form>
-   <br/>
+                  </div>
+                  </div>
+                  </div>
 
-     
-     <h3>Download the Excel format to register students:</h3>
-     <div style="border: 1px solid #a1a1a1;margin-top: 15px;padding: 20px; text-align:center">     
-      <a href="{{ url('downloadStudent/xls') }}"><button class="btn btn-success btn-lg">Download Excel xls</button></a>
-     <a href="{{ url('downloadStudent/xlsx') }}"><button class="btn btn-success btn-lg">Download Excel xlsx</button></a>
-     <a href="{{ url('downloadStudent/csv') }}"><button class="btn btn-success btn-lg">Download CSV</button></a>
-     </div>
+                </div>
+              </div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12">
+             <div class="x_panel">
+               <div class="x_title">
+                  <h2>Only Subject coordinators can upload Results</h2>
+                   <ul class="nav navbar-right panel_toolbox">
+                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                     </li>
+                     
+                     <li><a class="close-link"><i class="fa fa-close"></i></a>
+                     </li>
+                   </ul>
+                  <div class="clearfix"></div>
+               </div>
+                  <div class="x_content">             
+                  <hr>                 
+                  <div class="container">   
+                  <div class="panel panel-primary">
+                  <div class="panel-body">
 
- </div>
-</div>
-</div>
+                      @if ($message = Session::get('success'))
+                      <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                      </div>
+                    @endif
 
-             </div>
-           </div>
-         </div>
-       </div>
+                    @if ($message = Session::get('error'))
+                      <div class="alert alert-danger" role="alert">
+                        {{ Session::get('error') }}
+                      </div>
+                    @endif
 
-           
-     </div>
-   </div>
-   <!-- /page content -->
+                    <h3>Upload Compiled Results</h3>
+                    <form style="border: 1px solid #a1a1a1;margin-top: 15px;padding: 20px; text-align:center"
+                    action="{{ URL::to('tutor/uploadresults') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+                            
+                            {{ csrf_field() }}
+                            <br/>
+                            <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select File<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                               <input type="file" name="import_file" />
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Subject<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="subject">
+                                <option disabled ="" selected ="">Select Subject</option>
+                                @foreach($subjects as $subject)
+                                <option value = "{{$subject->name}}">{{$subject->name ." ".$subject->level }}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Class<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="klass">
+                                <option disabled ="" selected ="">Select Class</option>
+                                @foreach($klasses as $klass)
+                                <option value = "{{$klass->name}}">{{$klass->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Term<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="term">
+                                <option disabled ="" selected ="">Select Term</option>
+                                @foreach($terms as $term)
+                                <option value = "{{$term->name}}">{{$term->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Session<span class="required">*</span></label>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            <select class="form-control" required="" name="session">
+                                <option disabled ="" selected ="">Select Session</option>
+                                @foreach($sessions as $session)
+                                <option value = "{{$session->name}}">{{$session->name}}</option>
+
+                                @endforeach
+                            </select>
+                            </div>
+                            </div>
+
+                            <button class="btn btn-primary">Upload Results to Database</button>
+
+                        </div>
+                           
+
+                    </form>
+                    
+
+                  </div>
+                  </div>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+            
+      </div>
+    </div>
+    <!-- /page content -->
 
 
-      @endsection
+                      @endsection
 
 
 

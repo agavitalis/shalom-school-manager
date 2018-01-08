@@ -34,7 +34,7 @@
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Complete list of all your students results</h2>
+                    <h2>These your results are yet to be approved</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -49,7 +49,7 @@
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                     Here are your students results( You can change these results if the admin have not approved it ).
+                     Here are your students results( You can change these results since the admin have not approved it ).
                     </p>
                     <table id="datatable-buttons" class="table table-striped table-bordered  dt-responsive nowrap" cellspacing="0" width="100%">
                      <thead>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form class="form-horizontal form-label-left input_mask" action="/tutor/mysubjectsresult" method="post">
+                        <form class="form-horizontal form-label-left input_mask" action="/tutor/deletesubresult" method="post">
                             {{csrf_field()}}
                         <input type="hidden" name="action" value="level">
                         <div class="form-group">
@@ -143,18 +143,7 @@
                         </div>
 
                         
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Level<span class="required">*</span></label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="level">
-                                <option disabled ="" selected ="">Select level</option>
-                                @foreach($levels as $level)
-                                <option value = "{{$level->name}}">{{$level->name}}</option>
-
-                                @endforeach
-                            </select>
-                            </div>
-                        </div> 
+                       
 
 
                         <div class="form-group">
@@ -189,7 +178,7 @@
                             <select class="form-control" required="" name="subject">
                                 <option disabled ="" selected ="">Select Subject</option>
                                 @foreach($subjects as $subject)
-                                <option value = "{{$subject->name}}">{{$subject->name}}</option>
+                                <option value = "{{$subject->name}}">{{$subject->name."     ".$subject->level}}</option>
 
                                 @endforeach
                             </select>
@@ -204,7 +193,7 @@
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                             
                             <button class="btn btn-primary" type="reset">Reset</button>
-                            <button type="submit" class="btn btn-success">Show Results</button>
+                            <button type="submit" class="btn btn-danger">Delete Results</button>
                             </div>
                         </div>
 

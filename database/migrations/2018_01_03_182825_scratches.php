@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Subjects extends Migration
+class Scratches extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class Subjects extends Migration
      */
     public function up()
     {
-          Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('scratches', function (Blueprint $table) {
             $table->increments('id')->unique();
-            $table->string('name');
-            $table->string('level');
-            $table->string('category')->nullable();
-            $table->string('abbreviation');
+            $table->string('pin')->unique();
+            $table->string('used_by')->nullable();
+            $table->string('session');
+            $table->string('term');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class Subjects extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('subjects');
+        Schema::dropIfExists('scratches');
     }
 }

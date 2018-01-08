@@ -159,9 +159,9 @@
                         <div class="panel-body">
                            <h3>Download sample Excel file to register students:</h3>
                             <div style="border: 2px solid #a1a1a1;margin-top: 15px;padding: 20px;">     
-                              <a href="{{ url('downloadStudent/xls') }}"><button class="btn btn-info ">Download Excel xls</button></a>
-                            <a href="{{ url('downloadStudent/xlsx') }}"><button class="btn btn-info ">Download Excel xlsx</button></a>
-                            <a href="{{ url('downloadStudent/csv') }}"><button class="btn btn-info ">Download CSV</button></a>
+                              <a href="{{ url('downloadstudent/xls') }}"><button class="btn btn-info ">Download Excel xls</button></a>
+                            <a href="{{ url('downloadstudent/xlsx') }}"><button class="btn btn-info ">Download Excel xlsx</button></a>
+                            <a href="{{ url('downloadstudent/csv') }}"><button class="btn btn-info ">Download CSV</button></a>
                             </div>
 
                           <h3>Upload Excel File:</h3>

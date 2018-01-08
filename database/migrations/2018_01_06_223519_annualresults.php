@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Resultuploadexcel extends Migration
+class Annualresults extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,19 @@ class Resultuploadexcel extends Migration
      */
     public function up()
     {
-         Schema::create('resultuploadexcels', function (Blueprint $table) {
+        Schema::create('annualresults', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('name');
-            $table->string('regno');
-
-
+            $table->string('username');//that is the reg number 
             $table->string('class');
-            $table->string('term');
             $table->string('level');
             $table->string('session');
-           
             $table->string('subject');
-            $table->string('continous_accessment')->default(0);
-            $table->string('test')->default(0);
-            $table->string('exam')->default(0);
-           
-
-            $table->string('subject_teacher')->default(0);
-            $table->string('teacher_username')->default(0);
-    
+            $table->string('first_term_score')->default(0);
+            $table->string('second_term_score')->default(0);
+            $table->string('third_term_score')->default(0);
+            $table->string('total')->default(0);
+            $table->string('average')->default(0); 
             $table->timestamps();
         });
     }
@@ -44,6 +37,6 @@ class Resultuploadexcel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resultuploadexcels');
+        Schema::dropIfExists('annualresults');
     }
 }

@@ -53,7 +53,7 @@
                       <thead>
                         <tr>
                           <th>Name</th>
-                          <th>Class</th>
+                          <th>Gender</th>
                           <th>Reg Number</th>
                           <th>View Profile</th>  
                           <th>Assign Subjects</th> 
@@ -68,7 +68,7 @@
                       @foreach($teachers as $teacher)
                         <tr>
                           <td>{{$teacher->name}}</td>
-                          <td>{{$teacher->class}}</td>
+                          <td>{{$teacher->gender}}</td>
                           <td>{{$teacher->username}}</td>
                          
                            <td><a href="/admin/editteacher/{{$teacher->id}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> View Profile </a></td>

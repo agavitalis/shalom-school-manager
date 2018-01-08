@@ -45,9 +45,9 @@
                 <div class="x_content">
 
                   <div class="bs-example" data-example-id="simple-jumbotron">
-                    <div class="jumbotron">
-                      <h1>Hello, Vitalis!</h1>
-                      <p>Good evening, Welcome to the University of Nigeria Portal,How was your Day.</p>
+                    <div class="jumbotron text-center">
+                      <h1 style="font-size:2em;" >Hello, {{Auth::user()->name}}!</h1>
+                      <p> Welcome to the School Portal,How is your day going.</p>
                     </div>
                   </div>
 

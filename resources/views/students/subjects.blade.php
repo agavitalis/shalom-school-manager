@@ -29,7 +29,7 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col col-md-8 col-md-offset-2">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Yours Subjects</h2>
@@ -44,132 +44,36 @@
                   </div>
                   <div class="x_content">
 
-                    <p>These are your subjects for the term</p>
+                    <p>These are your subjects for the session</p>
 
                     <!-- start project list -->
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Subject Name</th>
-                          <th>No of Teachers</th>
-                          <th>Teacher's Name</th>
-                          <th style="width: 20%">#Course Outline</th>
+                          <th style="width: 30%">Subject Name</th>
+                          <th style="width: 20%">Level</th>
+                          <th style="width: 20%">Approved</th>
+                        
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                      @foreach($mysubjects as $mysubject )   
+                       <tr>
                           <td>#</td>
                           <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
+                            <a>{{$mysubject->name}}</a>
                           </td>
+                           <td>
+                            <a>{{$mysubject->level}}</a>
+                          </td>
+                          
                           <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
+                            <i class="fa fa-check-square-o "></i>
                           </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Download </a>
-                            
-                          </td>
+                      
                         </tr>
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
-                          </td>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Download </a>
-                            
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
-                          </td>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Download </a>
-                            
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a>Pesamakini Backend UI</a>
-                            <br/>
-                            <small>Created 01.01.2015</small>
-                          </td>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            
-                            </ul>
-                          </td>
-                        
-                          <td>
-                           <a>Pesamakini Backend UI</a>
-                          </td>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Download </a>
-                            
-                          </td>
-                        </tr>
+                      @endforeach 
                        
                        
                         

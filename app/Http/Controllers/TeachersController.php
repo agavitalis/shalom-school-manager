@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\stdregexcelsheet;
+use App\Model\resultuploadexcel;
 use Validator;
 use Auth;
 use Excel;
@@ -69,13 +70,13 @@ public function editprofile(Request $update)
        }
      elseif($update->action == 'final'){
 
-             $user=user::find(Auth::user()->id);
+            $user=user::find(Auth::user()->id);
             $user->skills=$update->skills;
             $user->intrest=$update->intrest;
             $user->quotes=$update->quotes;
            
-             $user->postsheld=$update->postsheld;
-              $user->dateofbirth=$update->dateofbirth;
+            $user->postsheld=$update->postsheld;
+            $user->dateofbirth=$update->dateofbirth;
 
             $user->save();
             return back()->with('success','Profile successfully updated');
@@ -95,7 +96,7 @@ public function editprofile(Request $update)
 public function mysubjects()
 {
  $mysubjects=DB::table('assignsubjects')->where('teacher_name',Auth::user()->name)->get();
-return view('teachers.mysubjects',compact('mysubjects'));
+ return view('teachers.mysubjects',compact('mysubjects'));
 }
 
 public function mysubjectsresult(Request $request)
@@ -107,16 +108,16 @@ public function mysubjectsresult(Request $request)
         $sessions=DB::table('sessions')->get();
         $terms=DB::table('terms')->get();
         $subjects=DB::table('subjects')->get();
-        $results=DB::table('results')->where('subject_teacher',Auth::user()->name)->get();
+        $results=DB::table('results')->where('subject_teacher',Auth::user()->name)->limit(50)->get();
         return view('teachers.mysubjectresult',compact('klasses','levels','sessions','terms','results','subjects'));
     }
     elseif($request->isMethod('POST'))
     {
         //now selecting results based on selection
         $results=DB::table('results')->where([ 
-        'class' =>$request->class,'teacher_username'=>Auth::user()->username, 'term' =>$request->term,'level' =>$request->level,
+        'class' =>$request->klass,'teacher_username'=>Auth::user()->username, 'term' =>$request->term,'level' =>$request->level,
         'session' =>$request->session,'subject' =>$request->subject])->get();
-        
+        //dd($request);
         $klasses=DB::table('klasses')->get();
         $levels=DB::table('levels')->get();
         $sessions=DB::table('sessions')->get();
@@ -129,17 +130,68 @@ public function mysubjectsresult(Request $request)
     }
 }
 
+public function deletesubresult(Request $request)
+{
+     if($request->isMethod('GET'))
+    {
+        $check=DB::table('assignsubjects')->where('teacher_name',Auth::user()->name)->count();
+        //that is if he doesnt have any class assigned
+        if($check < 1)
+        {
+            return back()->with('error','You have no subjects assigned to you');
+        }
+        $klasses=DB::table('klasses')->get();
+       
+        $sessions=DB::table('sessions')->get();
+        $terms=DB::table('terms')->get();
+        $subjects=DB::table('assignsubjects')->where('teacher_name',Auth::user()->name)->get();
+        $results=DB::table('results')->where(['subject_teacher'=>Auth::user()->name,'approved'=>0])->limit(50)->get();
+        return view('teachers.deletesubresult',compact('klasses','sessions','terms','results','subjects'));
+    }
+    elseif($request->isMethod('POST'))
+    {
+        //now selecting results based on selection
+        $getall=DB::table('results')->where([ 
+        'class' =>$request->klass,'teacher_username'=>Auth::user()->username, 'term' =>$request->term,
+        'session' =>$request->session,'subject' =>$request->subject]);
+        $count = $getall->count();
+         if($count<1) 
+         {
+              return back()->with('error','No results found');
+         }  
+
+        $results= $getall->get();
+        //dd($results);
+
+        foreach ($results as $key => $result) {
+           
+            $deleting=result::find($result->id);
+            $deleting->delete();
+            
+        }
+        
+        return back()->with('success','You have successfully deleted this results');
+        
+                
+    }
+}
 
 
 public function myclasses(Request $request)
 {
     if($request->isMethod('GET'))
     {
+            $check=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->count();
+            //that is if he doesnt have any class assigned
+            if($check < 1)
+            {
+                return back()->with('error','You have no classes assigned to you');
+            }
             $klasses=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->get();
             $first=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->first();
 
             $users=DB::table('users')->where('class',$first->name)->get();
-             $terms=DB::table('terms')->get();
+            $terms=DB::table('terms')->get();
             return view('teachers.myclasses',compact('klasses','users','terms'));
     }
     elseif($request->isMethod('POST'))
@@ -159,7 +211,13 @@ public function myclassresult(Request $request)
 {
      if($request->isMethod('GET'))
     {
-        
+        //check if I was assigned a class
+        $check=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->count();
+        //that is if he doesnt have any class assigned
+        if($check < 1)
+        {
+            return back()->with('error','You have no classes assigned to you');
+        }
         //get my first assigned class
         $first=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->first();
         //show him all first, then he chooses
@@ -218,83 +276,133 @@ public function generalclasslist(Request $request)
     }
 }   
 
-    
+ //download result sheet
+ public function resultsheet(Request $request, $type)
+{
+   // $data=DB::table('studentregistration')->get()->toArray();
+    $data = resultuploadexcel::get()->toArray();
+    return Excel::create('result_sheet', function($excel) use ($data) {
+      $excel->sheet('mySheet', function($sheet) use ($data)
+          {
+        $sheet->fromArray($data);
+          });
+    })->download($type);
+}   
 
         // /here I read the excelfile
  public function uploadresults(Request $request)
 {
         if($request->isMethod('GET'))
         {
-            return view('teachers.uploadresults');
+
+            //select shbjects where he is the coordinator and all the classes
+            $subjects=DB::table('assignsubjects')->where(['teacher_name'=> Auth::user()->name, 'is_coordinator'=> 1])->get();
+
+            $klasses=DB::table('klasses')->get();
+            $terms=DB::table('terms')->get(); 
+            $sessions=DB::table('sessions')->get();
+
+            return view('teachers.uploadresults',compact('subjects','klasses','terms','sessions'));
         }
 
         if($request->isMethod('POST'))
         {
-    
+               
             if($request->hasFile('import_file')){
                 $path = $request->file('import_file')->getRealPath();
                 $data = Excel::load($path)->get();
-              //  dd($data);
-                if($data->count()){
-                    foreach ($data as $key => $upload) {
+              
 
-                      //  dd($upload->name);
-                    $result = new Result();
-
-                    $result->name = $upload->name;
-                    $result->username = $upload->regno;
-
-                    $result->class = $upload->class;
-                    $result->term = $upload->term;
-                    $result->level = $upload->level;
-                    $result->session = $upload->session;
-
-                    $result->subject = $upload->subject;
-
-                    $result->continous_accessment = $upload->continous_accessment;
-                    $result->test = $upload->test;
-                    $result->exam = $upload->exam;
-                    $result->total = $upload->continous_accessment+ $upload->test + $upload->exam;
-
-                    if($result->total >= 70){
-                        $result->grade = "A";
-                    }
-                    elseif($result->total <= 69 && $result->total >= 60){
-                        $result->grade = "B";
-                    }
-                    elseif($result->total <= 59 && $result->total >= 50){
-                        $result->grade = "C";
-                    }
-                    elseif($result->total <= 49 || $result->total >= 45){
-                        $result->grade = "D";
-                    }
-                    elseif($result->total <= 45 || $result->total >= 40){
-                        $result->grade = "E";
-                    }
-                    elseif($result->total <= 39 || $result->total >= 0){
-                        $result->grade = "F";
-                    }
-
-                    $result->subject_teacher = $upload->subject_teacher;
-                    $result->teacher_username = $upload->teacher_username;
-                    $result->uploaded_by = Auth::user()->email;
-
-
-                    $result->save();
-
-
+                //check if its any an empty sheet
+                if(!$data->count()){
+                     return back()->with('error','you cannot opload an empty scheet');
                 }
-                //select all that I just uploaded
-                $subjectgrade=DB::table('results')->where([ 
-                'class' =>$upload->class,'term' =>$upload->term,'level' =>$upload->level,
-                'session' =>$upload->session,'subject' =>$upload->subject])->orderBy('total','DESC')->get();    
-                
-                $counter=1;
-                $last_total=null;
-                $sameposition=0;
-                foreach($subjectgrade as $position )
-                {
-                     if($last_total == $position->total)
+                   
+
+                elseif($data->count()){
+                    //check if he actually uploaded his course and class
+                    foreach ($data as $key => $upload)
+                    {
+                        if(($upload->class != $request->klass || $upload->subject != $request->subject)||($upload->term != $request->term || $upload->session != $request->session)){
+                            return back()->with("error","Cross Check Your File, your inputs doesn't match your selections");
+                        }
+                    }
+                    
+                    //check if that result have been in the database before
+                    foreach ($data as $key => $upload)
+                    {
+                        $check=DB::table('results')
+                        ->where(['username'=> $upload->regno, 'session'=> $upload->session, 'subject'=>$upload->subject, 'term'=>$upload->term])->count();
+                        
+                        if($check > 0)
+                        {
+                           return back()->with("error","Some of these records, already exist in the database");
+                 
+                        }
+                    }
+                    
+                    //now upload the result is clean
+                    foreach ($data as $key => $upload) 
+                    {
+
+                        //  dd($upload->name);
+                        $result = new Result();
+
+                        $result->name = $upload->name;
+                        $result->username = $upload->regno;
+
+                        $result->class = $upload->class;
+                        $result->term = $upload->term;
+                        $result->level = $upload->level;
+                        $result->session = $upload->session;
+
+                        $result->subject = $upload->subject;
+
+                        $result->continous_accessment = $upload->continous_accessment;
+                        $result->test = $upload->test;
+                        $result->exam = $upload->exam;
+                        $result->total = $upload->continous_accessment+ $upload->test + $upload->exam;
+
+                        if($result->total >= 70){
+                            $result->grade = "A";
+                        }
+                        elseif($result->total <= 69 && $result->total >= 60){
+                            $result->grade = "B";
+                        }
+                        elseif($result->total <= 59 && $result->total >= 50){
+                            $result->grade = "C";
+                        }
+                        elseif($result->total <= 49 || $result->total >= 45){
+                            $result->grade = "D";
+                        }
+                        elseif($result->total <= 45 || $result->total >= 40){
+                            $result->grade = "E";
+                        }
+                        elseif($result->total <= 39 || $result->total >= 0){
+                            $result->grade = "F";
+                        }
+
+                        $result->subject_teacher = $upload->subject_teacher;
+                        $result->teacher_username = $upload->teacher_username;
+                        $result->uploaded_by = Auth::user()->name;
+
+
+                        $result->save();
+
+                    }
+
+                        //select all that I just uploaded
+                        $subjectgrade=DB::table('results')->where([ 
+                        'class' =>$upload->class,'term' =>$upload->term,'level' =>$upload->level,
+                        'session' =>$upload->session,'subject' =>$upload->subject])->orderBy('total','DESC')->get();    
+                        
+                        $counter=1;
+                        $last_total=null;
+                        $sameposition=0;
+
+                    foreach($subjectgrade as $position )
+                    {
+                        if($last_total == $position->total)
                         {
                              $counter =  $counter - 1 ;
                              $position = Result::find( $position->id);
@@ -320,7 +428,7 @@ public function generalclasslist(Request $request)
                         }
 
                        
-                }
+                    }
                
                     return back()->with('success','Insert Record successfully.');
                     
@@ -337,6 +445,13 @@ public function classposition(Request $request)
 {
   if($request->isMethod('GET'))
     {
+         //check if I was assigned a class
+        $check=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->count();
+        //that is if he doesnt have any class assigned
+        if($check < 1)
+        {
+            return back()->with('error','You have no classes assigned to you');
+        }
         //select the teacher class
         $klass=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->first();
         //select the teacher classes
@@ -494,7 +609,13 @@ public function classposition(Request $request)
 {
      if($request->isMethod('GET'))
     {
-        
+        //check if I was assigned a class
+        $check=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->count();
+        //that is if he doesnt have any class assigned
+        if($check < 1)
+        {
+            return back()->with('error','You have no classes assigned to you');
+        }
         //get my first assigned class
         $first=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->first();
 
@@ -545,10 +666,16 @@ public function classposition(Request $request)
 {
      if($request->isMethod('GET'))
     {
-        
+         //check if I was assigned a class
+        $check=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->count();
+        //that is if he doesnt have any class assigned
+        if($check < 1)
+        {
+            return back()->with('error','You have no classes assigned to you');
+        }
         //get my first assigned class
         $first=DB::table('assignclasses')->where('teacher_name',Auth::user()->name)->first();
-
+        //dd($first);
         //get my current session
         $session=DB::table('sessions')->where('current',1)->first();
 
@@ -557,14 +684,18 @@ public function classposition(Request $request)
       
         //get the first student in his assigned class
         $student=DB::table('users')->where(['class'=>$first->name,'term'=>$term->name,'session'=>$session->name])->first();
-
+        $check=DB::table('users')->where(['class'=>$first->name,'term'=>$term->name,'session'=>$session->name])->count();
+        
         //get the guys result
+        
+        if($check < 1 ){
+
+                return back()->with('error','seems you dont have a student with his results ready');
+        }   
+       
         $results=DB::table('results')->where(['username'=>$student->username,'class'=>$student->class,'term'=>$student->term,'session'=>$student->session])->get();
             
-        if($results->count() < 1 ){
-
-             return back()->with('error','seems you dont have a student with his results ready');
-        } 
+        
         
         $result=DB::table('results')->where(['username'=>$student->username,'class'=>$student->class,'term'=>$student->term,'session'=>$student->session])->first();
 

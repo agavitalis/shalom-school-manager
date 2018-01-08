@@ -10,16 +10,17 @@
     <title>School Portal|Student </title>
 
     <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" media="all" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css"media="all" rel="stylesheet">
     <!-- NProgress -->
-    <link href="../css/nprogress.css" rel="stylesheet">
+    <link href="../css/nprogress.css" media="all" rel="stylesheet">
     <!-- Animate.css -->
-    <link href="../css/animate.min.css" rel="stylesheet">
+    <link href="../css/animate.min.css" media="all" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../css/custom.css" rel="stylesheet">
+    <link href="../css/custom.css" media="all" rel="stylesheet">
+    <link href="../css/custom.css" media="print" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -28,7 +29,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-graduation-cap"></i> <span>Smart Kid</span></a>
+              <a href="/dashboard" class="site_title"><i class="fa fa-graduation-cap"></i> <span>Smart Kid</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -79,12 +80,6 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../images/img.jpg" alt="">John Doe
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                     <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="../images/img.jpg" alt="">{{ Auth::user()->name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
@@ -102,13 +97,11 @@
                       </li>
                   </ul>
                 </li>
-                  </ul>
-                </li>
 
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class="badge bg-green">0</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     
@@ -118,11 +111,11 @@
                       <a>
                         <span class="image"><img src="../images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>Announcer</span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                          No messages yet
                         </span>
                       </a>
                     </li>

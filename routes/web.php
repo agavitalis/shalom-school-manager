@@ -3,21 +3,17 @@
 
 
 
-Route::get('dashboard','StudentController@dashboard')->name('student.dashboard');
+Route::get('dashboard','StudentController@dashboard')->name('students.dashboard');
 
 Route::get('profile','StudentController@profile')->name('studentprofile');
 
-Route::get('editprofile','StudentController@editprofile')->name('studenteditprofile');
+Route::match(['GET','POST'],'editprofile','StudentController@editprofile')->name('studenteditprofile');
 
 Route::get('subjects','StudentController@subjects')->name('studentsubject');
 
-Route::get('scheme','StudentController@scheme')->name('studentscheme');
+Route::match(['GET','POST'],'results','StudentController@results')->name('studentresults');
 
-Route::get('announcement','StudentController@announcement')->name('studentannouncement');
-
-Route::get('assignment','StudentController@assignment')->name('studentassignment');
-
-Route::get('results','StudentController@results')->name('studentresults');
+Route::match(['GET','POST'],'annualresults','StudentController@annualresults')->name('studentannualresults');
 
 
 
@@ -33,9 +29,15 @@ Route::get('tutor/mysubjects','TeachersController@mysubjects')->name('teachersub
 
 Route::match(['get','post'],'tutor/mysubjectsresult','TeachersController@mysubjectsresult')->name('mysubjectsresult');
 
+Route::match(['get','post'],'tutor/deletesubresult','TeachersController@deletesubresult')->name('deletesubresult');
+
+
 Route::match(['get','post'],'tutor/myclasses','TeachersController@myclasses')->name('teacher_myclasses');
 
 Route::match(['get','post'],'tutor/myclassresult','TeachersController@myclassresult')->name('myclassresult');
+
+//download the result sheet here
+Route::get('resultsheet/{type}', 'TeachersController@resultsheet')->name('resultsheet');
 
 Route::match(['get','post'],'tutor/uploadresults','TeachersController@uploadresults')->name('tutor.uploadresults');
 
@@ -69,7 +71,7 @@ Route::match(['get','post'],'admin/subject','adminController@subject')
 Route::match(['get','post'],'admin/registerstudents','adminController@registerstudents')
 			->name('admin.registerstudents');
 
-Route::get('downloadStudent/{type}', 'adminController@downloadstudent')->name('downloadstudent');
+Route::get('downloadstudent/{type}', 'adminController@downloadstudent')->name('downloadstudent');
 
 Route::post('importStudent', 'adminController@importstudent')->name('importstudent');
 
@@ -97,8 +99,8 @@ Route::match(['get','post'],'admin/registerteachers','adminController@registerte
 
 Route::get('downloadTeacher/{type}', 'adminController@downloadteacher')->name('downloadteacher');
 
-Route::post('importTeacher', 'adminController@importstudent')->name('importteacher');
-Route::get('admin/manageteachers','adminController@manageteachers')->name('admin.manageteachers');
+Route::post('importteacher', 'adminController@importsteacher')->name('importteacher');
+Route::match(['get','post'],'admin/manageteachers','adminController@manageteachers')->name('admin.manageteachers');
 
 Route::match(['get','post'],'admin/editteacher/{id?}','adminController@editteacher')->name('admin.editteacher');
 

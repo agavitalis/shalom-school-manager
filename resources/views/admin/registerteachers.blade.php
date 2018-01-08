@@ -130,7 +130,7 @@
 
                           <h3>Upload Excel File:</h3>
                           <form style="border: 2px solid #a1a1a1;margin-top: 15px;padding: 20px;"
-                           action="{{ URL::to('importStudent') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                           action="{{ URL::to('importteacher') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
                                   {{ csrf_field() }}
                                   <input class= 'btn btn-success'type="file" name="import_file" />
                                 

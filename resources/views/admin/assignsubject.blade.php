@@ -194,7 +194,7 @@
                             <select class="form-control" required="" name="subject">
                               <option disabled ="" selected ="">Select Subject</option>
                               @foreach($subjects as $subject)
-                              <option value = "{{$subject->name}}">{{$subject->name}}</option>
+                              <option value = "{{$subject->name}}">{{$subject->name.'   '.$subject->level}}</option>
 
                               @endforeach
                             </select>

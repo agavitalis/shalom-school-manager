@@ -61,9 +61,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
                         
-                          @foreach($mysubjects as $mysubject)
+                        
+                      @foreach($mysubjects as $mysubject)
+                        <tr>
                           <td>#</td>
                           <td>
                             <a>{{$mysubject->name}}</a>
@@ -85,11 +86,9 @@
                           </td>
                            <td>
                             <a>{{$mysubject->is_coordinator}}</a>
-                          </td>
-                          @endforeach
-                         
-                        
-                       
+                          </td>                                                 
+                        </tr>
+                        @endforeach
                       </tbody>
                     </table>
                     <!-- end project list -->
