@@ -67,6 +67,7 @@
                                    {{csrf_field()}}
                                   <input type="hidden" name="action" value="current">
                                   <input type="hidden" name="id" value ="{{$session->id}}">
+                                   <input type="hidden" name="session_name" value ="{{$session->name}}">
                                   <input type="submit" class="btn btn-success btn-xs" value="Set as current session">
                                </form>
                            

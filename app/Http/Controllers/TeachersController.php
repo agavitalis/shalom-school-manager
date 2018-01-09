@@ -500,7 +500,7 @@ public function classposition(Request $request)
 
 
             $results=DB::table('results')->where(['class' =>$klass,'term' =>$term,
-            'session' =>$session,'approved'=>1,'class_position'=>0])->get(); 
+            'session' =>$session,'approved'=>1,'class_position'=>0]); 
             
             if($results->count() == 0){
                 return back()->with('error', 'you have already calculated position for these results');
@@ -510,18 +510,24 @@ public function classposition(Request $request)
              $students=DB::table('users')->where(['class' =>$klass,'term' =>$term,
             'session' =>$session])->get();
 
+             if($students->count() < 1){
+                return back()->with('error', 'We cant find any student in your class');
+            }
+
            //dd($students);
             foreach($students as $student )
             {
                 
                 //get me the total score, calculate the average,and sum
 
-                $total_score=DB::table('results')->where(['class' =>$request->klass,'term' =>$request->term,
-                'session' =>$request->session,'approved'=>1,'class_position'=>0])->get();
-              
-                $total_subjects = $total_score->count();
-                $sum_total=$total_score->sum();
-                $average = $total_score->avg();
+                $selection=DB::table('results')->where(['class' =>$request->klass,'term' =>$request->term,
+                'session' =>$request->session,'approved'=>1,'class_position'=>0,'username'=>$student->username]);
+
+                $getall= $selection->get();
+                $total_subjects = $selection->count();
+               // dd($total_subjects);
+                $sum_total=$selection->pluck('total')->sum();
+                $average = $selection->pluck('total')->avg();
                 
 
                 $position = new Position();
@@ -739,6 +745,55 @@ public function classposition(Request $request)
 }
 
 
+// protected function annualresult(){
 
+//             $first=DB::table('results')->where(['class' =>$request->klass,
+//             'session' =>$request->session,'term'=>1,'approved'=>1,'class_position'=>1,'annual_cal'=>0]); 
+//             //getall
+//             $getall = $first->get();
+
+
+//             if($results->count() == 0){
+//                 return back()->with('error', 'you have already calculated position for these results');
+//             }
+
+//             //time to calculate the result and the positions by selecting all the students in my class
+//              $students=DB::table('users')->where(['class' =>$klass,'term' =>$term,
+//             'session' =>$session])->get();
+
+//            //dd($students);
+//             foreach($students as $student )
+//             {
+                
+//                 //get me the total score, calculate the average,and sum
+
+//                 $total_score=DB::table('results')->where(['class' =>$request->klass,'term' =>$request->term,
+//                 'session' =>$request->session,'approved'=>1,'class_position'=>0])->get();
+              
+//                 $total_subjects = $total_score->count();
+//                 $sum_total=$total_score->sum();
+//                 $average = $total_score->avg();
+                
+
+//                 $position = new Position();
+
+//                 // dd($position->name);
+               
+//                 $position->name = $student->name;
+//                 $position->username = $student->username;
+//                 $position->class = $student->class;
+//                 $position->term = $student->term;
+//                 $position->level = $student->level;
+//                 $position->session = $student->session;
+
+//                 $position->total_no_of_subjects= $total_subjects;
+//                 $position->total_score = $sum_total;
+//                 $position->average = $average;
+
+//                 $position->save();   
+
+
+
+// }
 
 }

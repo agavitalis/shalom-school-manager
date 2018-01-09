@@ -75,10 +75,21 @@ public function session(Request $request){
              $old->current = 0;
              $old->update();
 
-//then find the new one and change it to active
-        $session=session::find($request->id);
-        $session->current = 1;
-        $session->save();
+            //then find the new one and change it to active
+            $session=session::find($request->id);
+            $session->current = 1;
+            $session->save();
+        
+             //update the users tble
+         $users=DB::table('users')->get(); 
+         // dd($request->session_name);
+         foreach($users as $user)
+         {
+            $updateterm=user::find($user->id);
+            $updateterm->session = $request->session_name;
+            $updateterm->update();
+         }
+
         return back()->with('success','You have successfully changed your session');
       }
       elseif($request->action == "delete")
@@ -100,7 +111,18 @@ public function session(Request $request){
         $term=term::find($request->id);
         $term->current = 1;
         $term->save();
-        return back()->with('success','You have successfully the term');
+
+        //update the users tble
+         $users=DB::table('users')->get(); 
+
+         foreach($users as $user)
+         {
+            $updateterm=user::find($user->id);
+            $updateterm->term = $request->id;
+            $updateterm->update();
+         }
+
+        return back()->with('success','You have successfully updated the term');
       }
       else
       {
