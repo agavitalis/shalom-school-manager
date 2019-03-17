@@ -12,15 +12,10 @@ Access the system using the following login details
 
 As Pricipal:
 Username: admin
+Email: admin@admin.com
 password: admin101
 
-As Teacher:
-Username: teacher
-password: teacher101
 
-As Student:
-Username: student
-password: student101
 
 ##Contact
 Intrested in this project, contact me on +2348163922749 or email via agavitalisogbonna@gmail.com
