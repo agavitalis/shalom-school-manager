@@ -11,7 +11,7 @@ This system is live on https://shalom-school-manager.herokuapp.com
 Access the system using the following login details
 
 As Pricipal:
-Username: admin
+Username: Admin
 Email: admin@admin.com
 password: admin101
 
