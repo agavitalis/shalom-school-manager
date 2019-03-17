@@ -53,38 +53,38 @@ Route::match(['get','post'],'tutor/viewcomment','TeachersController@viewcomment'
 //admin routes begin
 
 
-Route::get('admin/dashboard','adminController@admindashboard')->name('admin.dashboard');
+Route::get('admin/dashboard','AdminController@admindashboard')->name('admin.dashboard');
 
-Route::match(['get','post'],'admin/session','adminController@session')
+Route::match(['get','post'],'admin/session','AdminController@session')
 			->name('admin.session');
 
-Route::match(['get','post'],'admin/level','adminController@level')
+Route::match(['get','post'],'admin/level','AdminController@level')
 			->name('admin.level');
 
-Route::match(['get','post'],'admin/class','adminController@klass')
+Route::match(['get','post'],'admin/class','AdminController@klass')
 			->name('admin.class');
 
-Route::match(['get','post'],'admin/subject','adminController@subject')
+Route::match(['get','post'],'admin/subject','AdminController@subject')
 			->name('admin.subject');
 
 //register the students
-Route::match(['get','post'],'admin/registerstudents','adminController@registerstudents')
+Route::match(['get','post'],'admin/registerstudents','AdminController@registerstudents')
 			->name('admin.registerstudents');
 
-Route::get('downloadstudent/{type}', 'adminController@downloadstudent')->name('downloadstudent');
+Route::get('downloadstudent/{type}', 'AdminController@downloadstudent')->name('downloadstudent');
 
-Route::post('importStudent', 'adminController@importstudent')->name('importstudent');
+Route::post('importStudent', 'AdminController@importstudent')->name('importstudent');
 
-Route::match(['get','post'],'admin/managestudents','adminController@managestudents')->name('admin.managestudents');
+Route::match(['get','post'],'admin/managestudents','AdminController@managestudents')->name('admin.managestudents');
 
-Route::match(['get','post'],'admin/editstudent/{id?}','adminController@editstudent')->name('admin.editstudent');
+Route::match(['get','post'],'admin/editstudent/{id?}','AdminController@editstudent')->name('admin.editstudent');
 
 
 
 //admin profile
-Route::get('admin/profile','adminController@adminprofile')->name('admin.profile');
+Route::get('admin/profile','AdminController@adminprofile')->name('admin.profile');
 
-Route::match(['get','post'],'admin/editprofile','adminController@admineditprofile')
+Route::match(['get','post'],'admin/editprofile','AdminController@admineditprofile')
 			->name('admin.editprofile');
 
 
@@ -94,37 +94,37 @@ Route::match(['get','post'],'admin/editprofile','adminController@admineditprofil
 //$2y$10$mOZ4nlUpcwmG2vb9vwgcSOXTLfoJdDndPuHT.wFUZuVdZ6rdEIwYy
 
 //teachers
-Route::match(['get','post'],'admin/registerteachers','adminController@registerteachers')
+Route::match(['get','post'],'admin/registerteachers','AdminController@registerteachers')
 			->name('admin.registerteachers');
 
-Route::get('downloadTeacher/{type}', 'adminController@downloadteacher')->name('downloadteacher');
+Route::get('downloadTeacher/{type}', 'AdminController@downloadteacher')->name('downloadteacher');
 
-Route::post('importteacher', 'adminController@importsteacher')->name('importteacher');
-Route::match(['get','post'],'admin/manageteachers','adminController@manageteachers')->name('admin.manageteachers');
+Route::post('importteacher', 'AdminController@importsteacher')->name('importteacher');
+Route::match(['get','post'],'admin/manageteachers','AdminController@manageteachers')->name('admin.manageteachers');
 
-Route::match(['get','post'],'admin/editteacher/{id?}','adminController@editteacher')->name('admin.editteacher');
+Route::match(['get','post'],'admin/editteacher/{id?}','AdminController@editteacher')->name('admin.editteacher');
 
 
 //assign coureses and classes
-Route::match(['get','post'],'admin/assignsubject','adminController@assignsubject')->name('admin.assignsubject');
+Route::match(['get','post'],'admin/assignsubject','AdminController@assignsubject')->name('admin.assignsubject');
 
-Route::match(['get','post'],'admin/assignclass','adminController@assignclass')->name('admin.assignclass');
+Route::match(['get','post'],'admin/assignclass','AdminController@assignclass')->name('admin.assignclass');
 
 
 //here i took care of the results from the admin
-Route::match(['get','post'],'admin/viewresults','adminController@allresults')->name('viewresults');
+Route::match(['get','post'],'admin/viewresults','AdminController@allresults')->name('viewresults');
 
-Route::match(['get','post'],'admin/approveresult','adminController@approveresults')->name('approvesresults');
+Route::match(['get','post'],'admin/approveresult','AdminController@approveresults')->name('approvesresults');
 
 //i gave student classes and levels
-Route::match(['get','post'],'admin/givestudentsclasses','adminController@givestudentsclasses')->name('givestudentsclasses');
+Route::match(['get','post'],'admin/givestudentsclasses','AdminController@givestudentsclasses')->name('givestudentsclasses');
 
-Route::match(['get','post'],'admin/givestudentslevel','adminController@givestudentslevel')->name('givestudentslevel');
+Route::match(['get','post'],'admin/givestudentslevel','AdminController@givestudentslevel')->name('givestudentslevel');
 
-Route::match(['get','post'],'admin/printstudents','adminController@printstudents')->name('printstudents');
+Route::match(['get','post'],'admin/printstudents','AdminController@printstudents')->name('printstudents');
 
 
-Route::get('admin/assignment','adminController@assignment')->name('assignment');
+Route::get('admin/assignment','AdminController@assignment')->name('assignment');
 
 Auth::routes();
 
