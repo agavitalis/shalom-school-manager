@@ -1,5 +1,5 @@
-# Shalom-School-Manager
-A secondary school management for Shalom Secondary School Ebonyi State Nigeria
+# Secondary-School-Management Solution
+A MODEL SECONDARY SCHOOL MANAGEMENT SOLUTION
 
 ## About Shalom School Manager
 Built with Laravel, it bootstraps the major day to day activities involved in running a typical Nigerian Secondary Secondary School.
@@ -12,10 +12,7 @@ Access the system using the following login details
 
 As Pricipal:
 Username: Admin
-Email: admin@admin.com
 password: admin101
-
-
 
 ## Contact
 Intrested in this project? Contact me on +2348163922749 or email via agavitalisogbonna@gmail.com

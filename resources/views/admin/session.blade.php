@@ -158,8 +158,8 @@
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Term<span class="required">*</span></label>
                           <div class="col-md-8 col-sm-6 col-xs-12">
-                            <select class="form-control" required="" name="id">
-                              <option disabled ="" selected ="">Select Term</option>
+                            <select class="form-control" required name="id">
+                              <option disabled selected value="">Select Term</option>
                               @foreach($terms as $term)
                               <option value = "{{$term->name}}">{{$term->name}}</option>
 
