@@ -31,8 +31,6 @@ class AdminController extends Controller
     }
 
 
-
-
 public function admindashboard()
   {
     //gem me the list of admin, students and teachers

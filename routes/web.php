@@ -88,6 +88,11 @@ Route::match(['get','post'],'admin/editprofile','AdminController@admineditprofil
 			->name('admin.editprofile');
 
 
+Route::prefix('admin')->namespace('Admin')->group(function () {
+	Route::get('createFees','FeesController@createFeesGet')->name('admin.create.fees.get');
+	Route::get('createFees','FeesController@createFeesPost')->name('admin.create.fees.post');
+	Route::get('manageFees','FeesController@manageFees')->name('admin.manage.fees');
+});
 
 
 //$2y$10$NCC8W8ZqbMyHOFaaLzOd2u.iSpdnhyse1qD1Abt73IABNbLuRbMQ6

@@ -11,7 +11,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Allocate students to classes here</h3>
+                    <h3>Manage Fees Here</h3>
                 </div>
 
                 <div class="title_right">
@@ -29,10 +29,10 @@
             <div class="clearfix"></div>
 
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Students can be allocated to classes </h2>
+                            <h2>Students Fees Management </h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -53,15 +53,17 @@
                                     cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Student Name</th>
-                                            <th>Reg No</th>
-                                            <th>Current Level</th>
-                                            <th>Current Class</th>
-                                            <th>Select Student</th>
+                                            <th>Fee Name</th>
+                                            <th>Amount</th>
+                                            <th>Session</th>
+                                            <th>Level</th>
+                                            <th>Term</th>
+                                            <th>Classes</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
+                                        {{-- @foreach ($fees as $fee)
                                             <tr>
                                                 <td>
                                                     <a>{{ $user->name }}</a>
@@ -75,98 +77,17 @@
                                                 <td>
                                                     <a>{{ $user->class }}</a>
                                                 </td>
-                                                <td>
-
-                                                    <input type="checkbox" name="student[]" id="hobby2"
-                                                        value="{{ $user->id }}" class="flat" /> Select Student
-
-                                                </td>
-
-
+                                               
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                                 <!-- end project list -->
-                                <div class="ln_solid"></div>
-                                <input type="hidden" name="action" value="giveclass">
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" required="" name="klass">
-                                            <option disabled="" selected="">Select Class</option>
-                                            @foreach ($klasses as $klass)
-                                                <option value="{{ $klass->name }}">{{ $klass->name }}</option>
-
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-6 col-xs-12 ">
-
-                                        <button type="submit" class="btn btn-success">Assign selected students this
-                                            Class</button>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </form>
                     </div>
                 </div>
-
-
-                <div class="col-md-4 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Assign <small>classes to students in the selected level</small></h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <br />
-                            <form class="form-horizontal form-label-left input_mask" action="/admin/givestudentsclasses"
-                                method="post">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="action" value="showlevel">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Session<span
-                                            class="required">*</span></label>
-                                    <div class="col-md-8 col-sm-6 col-xs-12">
-                                        <select class="form-control" required="" name="level">
-                                            <option disabled="" selected="">Select level</option>
-                                            @foreach ($levels as $level)
-                                                <option value="{{ $level->name }}">{{ $level->name }}</option>
-
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-
-                                        <button class="btn btn-primary" type="reset">Reset</button>
-                                        <button type="submit" class="btn btn-success">Show Students</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-
-
-
-
 
             </div>
         </div>
@@ -174,8 +95,6 @@
     <!-- /page content -->
 
 @endsection
-
-
 
 @section('footer')
     @include('partials.admin.footer')
